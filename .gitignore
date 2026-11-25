@@ -1,8 +1,10 @@
 node_modules/
-.next/
-out/
+dist/
+storybook-static/
+.output/
+.vite/
 .turbo/
+.tanstack/
 *.tsbuildinfo
 .env*
 .vercel/
-next-env.d.ts

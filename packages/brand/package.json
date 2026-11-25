@@ -1,0 +1,29 @@
+{
+	"name": "@repo/brand",
+	"version": "0.1.0",
+	"private": true,
+	"type": "module",
+	"exports": {
+		".": "./src/index.ts",
+		"./logo-mark": "./src/logo-mark.ts",
+		"./logo.png": "./assets/logo.png",
+		"./logo.svg": "./assets/logo.svg",
+		"./motion": "./src/motion.ts",
+		"./fonts.css": "./src/fonts.css",
+		"./tokens.css": "./src/tokens.css"
+	},
+	"scripts": {
+		"check-types": "tsc --noEmit"
+	},
+	"dependencies": {
+		"@fontsource-variable/jetbrains-mono": "^5.3.0",
+		"@fontsource-variable/plus-jakarta-sans": "^5.3.0"
+	},
+	"devDependencies": {
+		"@repo/typescript-config": "*",
+		"@types/react": "19.2.2",
+		"typescript": "5.9.2",
+		"@storybook/react": "10.6.2",
+		"vite": "8.1.6"
+	}
+}

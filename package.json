@@ -1,0 +1,14 @@
+{
+	"name": "vkit",
+	"private": true,
+	"packageManager": "bun@1.4.2",
+	"workspaces": ["apps/*", "packages/*"],
+	"scripts": {
+		"dev:site": "bun --cwd apps/site run dev",
+		"dev:storybook": "bun --cwd apps/storybook run dev",
+		"build": "bun --cwd apps/site run build",
+		"check-types": "bun run --filter '*' check-types",
+		"lint": "bun run --filter '*' lint",
+		"test": "bun --cwd apps/site run test"
+	}
+}
