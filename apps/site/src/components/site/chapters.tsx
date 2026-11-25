@@ -1,40 +1,8 @@
 import type { ReactNode } from "react";
-import { hero, kits, packageManagers, startCommand, type Kit } from "@/content";
+import { kits, type Kit } from "@/content";
 import { stepProps } from "@/lib/story";
 import { CopyButton } from "./copy-button";
 import { Logo } from "./logo";
-
-export function HeroCopy() {
-	return (
-		<section id="start" className="vk-chapter vk-chapter--hero" aria-labelledby="hero-title" {...stepProps("hero")}>
-			<h1 id="hero-title">{hero.title}</h1>
-			<p className="vk-lead">{hero.lead}</p>
-			<div className="vk-cmd">
-				<fieldset className="vk-cmd__pm" aria-label="Package manager">
-					{packageManagers.map((pm, index) => (
-						<label key={pm}>
-							<input type="radio" name="pm" value={pm} defaultChecked={index === 0} />
-							<span>{pm}</span>
-						</label>
-					))}
-				</fieldset>
-				{kits.map((kit) =>
-					packageManagers.map((pm) => (
-						<div key={`${kit.name}-${pm}`} className="vk-cmd__line" data-kit={kit.name} data-pm={pm}>
-							<code>
-								<span className="vk-cmd__prompt" aria-hidden="true">
-									${" "}
-								</span>
-								{startCommand(kit.name, pm)}
-							</code>
-							<CopyButton text={startCommand(kit.name, pm)} />
-						</div>
-					)),
-				)}
-			</div>
-		</section>
-	);
-}
 
 function ChapterHead({ title, children, id }: { title: string; children: ReactNode; id?: string }) {
 	return (

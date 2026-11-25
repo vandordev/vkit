@@ -185,11 +185,7 @@ body {
 	padding-block: clamp(48px, 8vh, 96px);
 	border-top: 1px solid var(--vk-line);
 }
-.vk-chapter--hero {
-	min-height: calc(100svh - 61px);
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
+.vk-story__flow > .vk-chapter:first-child {
 	border-top: 0;
 }
 .vk-chapter h1 {
@@ -285,8 +281,7 @@ body {
 	position: relative;
 	cursor: pointer;
 }
-.vk-cmd__pm input,
-.vk-switch__kits input {
+.vk-cmd__pm input {
 	position: absolute;
 	opacity: 0;
 	pointer-events: none;
@@ -308,37 +303,32 @@ body {
 	color: var(--vk-term-ink);
 	background: rgb(255 255 255 / 0.08);
 }
-.vk-cmd__pm input:focus-visible + span,
-.vk-switch__kits input:focus-visible + span {
+.vk-cmd__pm input:focus-visible + span {
 	outline: 2px solid var(--ring);
 	outline-offset: 2px;
 }
 
-/* Kit switch: pinned with the stage, so the kit can change at any point of the story. */
+/* Kit switch: a segmented control in the sticky nav, reachable from every section. */
 .vk-switch {
-	display: flex;
-	align-items: center;
-	gap: 16px;
-	padding: 12px 20px;
-	border-bottom: 1px solid var(--vk-line);
-	background: color-mix(in oklab, var(--background) 90%, transparent);
-}
-.vk-switch__kits {
-	position: relative;
 	display: inline-flex;
-	margin: 0;
+	margin: 0 0 0 20px;
 	padding: 3px;
 	border: 1px solid var(--vk-line);
 	border-radius: 10px;
 	background: var(--card);
 }
-.vk-switch__kits label {
+.vk-switch label {
 	position: relative;
 	cursor: pointer;
 }
-.vk-switch__kits span {
+.vk-switch input {
+	position: absolute;
+	opacity: 0;
+	pointer-events: none;
+}
+.vk-switch span {
 	display: block;
-	padding: 5px 14px;
+	padding: 4px 13px;
 	border-radius: 7px;
 	font-family: var(--font-mono);
 	font-size: 0.8125rem;
@@ -348,21 +338,96 @@ body {
 		background-color var(--motion-base) var(--ease-out),
 		box-shadow var(--motion-base) var(--ease-out);
 }
-.vk-switch__kits label:hover span {
+.vk-switch label:hover span {
 	color: var(--foreground);
 }
-.vk-switch__kits input:checked + span {
+.vk-switch input:checked + span {
 	color: var(--primary-foreground);
 	background: var(--primary);
 	box-shadow: 0 1px 2px rgb(0 0 0 / 0.18);
 }
-.vk-switch__meta {
-	font-size: var(--vk-text-sm);
-	color: var(--vk-mute);
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
+.vk-switch input:focus-visible + span {
+	outline: 2px solid var(--ring);
+	outline-offset: 2px;
 }
+
+/* Hero: one centered column across the full width, over a field of dots that leans toward the pointer. */
+.vk-hero {
+	position: relative;
+	isolation: isolate;
+	display: grid;
+	place-items: center;
+	min-height: min(860px, calc(100svh - 61px - 72px));
+	padding-block: clamp(64px, 10vh, 120px);
+	text-align: center;
+}
+.vk-hero__field {
+	position: absolute;
+	inset: 0;
+	z-index: -1;
+	-webkit-mask-image: radial-gradient(ellipse 70% 65% at 50% 45%, #000 30%, transparent 78%);
+	mask-image: radial-gradient(ellipse 70% 65% at 50% 45%, #000 30%, transparent 78%);
+}
+.vk-hero__inner {
+	display: grid;
+	justify-items: center;
+	max-width: 980px;
+}
+.vk-hero__title {
+	font-size: clamp(2.75rem, 1.6rem + 4.6vw, 5.5rem);
+	line-height: 1;
+	letter-spacing: -0.04em;
+	font-weight: 600;
+}
+.vk-hero__blur {
+	justify-content: center;
+	margin: 0;
+	text-wrap: balance;
+}
+/* BlurText starts each word hidden and blurred. Without JavaScript, or with reduced motion (which motion's
+   MotionConfig only applies to transforms), show the finished headline at once. */
+:root:not(.js) .vk-hero__blur * {
+	opacity: 1 !important;
+	filter: none !important;
+	transform: none !important;
+}
+@media (prefers-reduced-motion: reduce) {
+	.vk-hero__blur * {
+		opacity: 1 !important;
+		filter: none !important;
+		transform: none !important;
+	}
+}
+.vk-hero .vk-lead {
+	margin-inline: auto;
+	max-width: 54ch;
+}
+.vk-hero .vk-cmd {
+	width: min(100%, 620px);
+	text-align: left;
+}
+
+/* Marquee: every technology across both kits, drifting left to right. */
+.vk-marquee {
+	padding-block: 22px;
+	border-block: 1px solid var(--vk-line);
+	color: var(--foreground);
+}
+.vk-marquee__item {
+	display: inline-flex;
+	align-items: center;
+	gap: 10px;
+	font-size: 0.9375rem;
+	font-weight: 500;
+	line-height: 1;
+	white-space: nowrap;
+}
+.vk-marquee__item .vk-logo {
+	grid-row: auto;
+	width: 20px;
+	height: 20px;
+}
+
 .vk-cmd__line {
 	display: flex;
 	align-items: center;
@@ -536,6 +601,9 @@ body {
 }
 .vk-dock__body[data-typed] > p:first-child {
 	animation: vk-type 380ms steps(22, end);
+}
+.vk-dock__scramble {
+	color: var(--vk-term-dir);
 }
 .vk-dock__prompt {
 	color: var(--vk-term-mute);
@@ -811,9 +879,8 @@ body {
 		border-left: 0;
 		border-bottom: 1px solid var(--vk-line);
 	}
-	.vk-chapter--hero {
-		min-height: 0;
-		padding-top: 40px;
+	.vk-switch {
+		margin-left: 12px;
 	}
 	.vk-dock,
 	.vk-bar__key {
@@ -835,8 +902,19 @@ body {
 	.vk-nav__links {
 		gap: 14px;
 	}
-	.vk-nav__links a[href="/#start"] {
+	/* Phones: brand, kit switch, GitHub and theme; Roadmap stays in the footer. */
+	.vk-nav__links a[href="/roadmap"] {
 		display: none;
+	}
+	.vk-nav__row {
+		gap: 8px;
+	}
+	/* GitHub is in the footer too; phones keep brand, kit switch and theme. */
+	.vk-nav__icon {
+		display: none;
+	}
+	.vk-switch span {
+		padding-inline: 9px;
 	}
 	.vk-cmd__line {
 		flex-wrap: wrap;

@@ -5,5 +5,5 @@ export default tseslint.config(
 	js.configs.recommended,
 	...tseslint.configs.recommended,
 	{ rules: { "@typescript-eslint/no-unused-vars": ["error", { argsIgnorePattern: "^_" }] } },
-	{ ignores: ["dist/**", "src/routeTree.gen.ts"] },
+	{ ignores: ["dist/**", "src/routeTree.gen.ts", "src/components/reactbits/**"] },
 );

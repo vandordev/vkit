@@ -1,9 +1,11 @@
 import { ZenithMark, zenithWordmarkClassName } from "@repo/ui/zenith-mark";
 import { siGithub } from "simple-icons";
 import { repoUrl } from "@/content";
+import { KitSwitch } from "./kit-switch";
 import { ThemeSwitch } from "./theme-switch";
 
-export function SiteNav() {
+/** `kitSwitch` is on for the landing page only: the switch drives every kit-specific section below it. */
+export function SiteNav({ kitSwitch = false }: { kitSwitch?: boolean }) {
 	return (
 		<header className="vk-nav">
 			<div className="vk-wrap vk-nav__row">
@@ -17,8 +19,8 @@ export function SiteNav() {
 						Vkit
 					</span>
 				</a>
+				{kitSwitch ? <KitSwitch /> : null}
 				<nav aria-label="Primary" className="vk-nav__links">
-					<a href="/#start">Kits</a>
 					<a href="/roadmap">Roadmap</a>
 					<a href={repoUrl} className="vk-nav__icon" aria-label="vkit on GitHub" title="GitHub">
 						<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">

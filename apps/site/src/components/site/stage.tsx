@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { kits, type Kit, type KitName } from "@/content";
 import { chapters, STEP_EVENT, type ChapterId, type StepDetail } from "@/lib/story";
+import DecryptedText from "../reactbits/DecryptedText";
 import { ArchGraph } from "./arch-graph";
 
 const visibleTree = (kit: Kit) => kit.facts.tree.filter((e) => !e.name.startsWith("."));
@@ -56,28 +57,12 @@ export function Stage() {
 
 	return (
 		<div className="vk-stage" data-chapter={chapter}>
-			{/* The kit choice lives on the pinned stage so it stays reachable for the whole story. */}
-			<div className="vk-switch">
-				<fieldset className="vk-switch__kits" aria-label="Kit">
-					{kits.map((k, i) => (
-						<label key={k.name}>
-							<input type="radio" name="kit" value={k.name} defaultChecked={i === 0} />
-							<span>{k.name}</span>
-						</label>
-					))}
-				</fieldset>
-				{kits.map((k) => (
-					<p key={k.name} className="vk-switch__meta" data-kit={k.name}>
-						{k.backend} · {k.tagline}
-					</p>
-				))}
-			</div>
 			<ArchGraph />
 			<div className="vk-dock" aria-hidden="true">
 				<div className="vk-dock__body" key={`${kit}-${chapter}`} data-typed={typed || undefined}>
 					<p>
 						<span className="vk-dock__prompt">$ </span>
-						{card.command}
+						{typed ? <DecryptedText text={card.command} animateOn="view" sequential speed={18} revealDirection="start" useOriginalCharsOnly encryptedClassName="vk-dock__scramble" /> : card.command}
 					</p>
 					{card.output.map((line, i) => (
 						<p key={i} className="vk-dock__out" style={{ animationDelay: `${120 + i * 60}ms` }}>
@@ -95,9 +80,6 @@ export function Stage() {
 				<div className="vk-bar__row">
 					<span className="vk-bar__key" aria-label="Legend">
 						<i data-lang="go" /> Go <i data-lang="ts" /> TypeScript <i data-kind="app" /> app <i data-kind="package" /> package
-					</span>
-					<span className="vk-bar__label">
-						{String(index + 1).padStart(2, "0")} / {String(chapters.length).padStart(2, "0")} · {chapters[index]?.label}
 					</span>
 				</div>
 			</div>

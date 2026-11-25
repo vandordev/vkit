@@ -27,4 +27,6 @@ Bun-workspaces monorepo, same shape as vkit-zenith:
 
 ## License
 
-[MIT](LICENSE)
+[MIT](LICENSE), except `apps/site/src/components/reactbits/`: components vendored from
+[React Bits](https://reactbits.dev) under MIT + Commons Clause (see that folder's `LICENSE.md`). They are
+part of this site only and are never copied into the kits or generator output.
