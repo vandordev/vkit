@@ -42,5 +42,5 @@ export const nextSteps: readonly { version: string; text: string }[] = [
 
 export const repoUrl = "https://github.com/vandordev/vkit";
 export const roadmapUrl = `${repoUrl}/blob/main/ROADMAP.md`;
-// replaced by the real URL after the Vercel import (plan Task 14)
-export const siteUrl = "https://vkit.vercel.app";
+// production URL (Vercel Hobby project)
+export const siteUrl = "https://vandor-vkit.vercel.app";
