@@ -101,6 +101,16 @@
 	gap: 9px;
 	text-decoration: none;
 }
+.vk-brand--nav {
+	gap: 8px;
+	/* The mark's hexagons sit in the middle band of a square viewBox; pull it to the edge so it lines up with the wrap. */
+	margin-left: -4px;
+}
+.vk-brand__slash {
+	margin-right: 10px;
+	color: var(--vk-mute);
+	font-weight: 400;
+}
 .vk-nav__links {
 	display: flex;
 	gap: 22px;
