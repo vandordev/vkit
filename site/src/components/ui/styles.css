@@ -1,6 +1,6 @@
 /* shortcut: copied from vkit-zenith packages/ui/src/styles.css; upstream to the @vandor registry, then install from it. */
 @source "./**/*.{ts,tsx}";
-@custom-variant vandor-dark (&:where(.dark, .dark *));
+@custom-variant vandor-dark (@media (prefers-color-scheme: dark));
 
 @keyframes zenith-loader-draw {
 	0% {

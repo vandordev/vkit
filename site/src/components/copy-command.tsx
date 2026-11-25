@@ -6,7 +6,7 @@ import { copyText, type CopyResult } from "@/lib/copy";
 
 const labels: Record<CopyResult | "idle", string> = { idle: "Copy", copied: "Copied", failed: "Copy failed" };
 
-export function CopyCommand({ command, primary = false }: { command: string; primary?: boolean }) {
+export function CopyCommand({ command }: { command: string }) {
 	const [state, setState] = useState<CopyResult | "idle">("idle");
 
 	useEffect(() => {
@@ -16,7 +16,7 @@ export function CopyCommand({ command, primary = false }: { command: string; pri
 	}, [state]);
 
 	return (
-		<div className="copy-command" data-primary={primary || undefined}>
+		<div className="copy-command">
 			<code className="copy-command__text">
 				<span aria-hidden="true" className="copy-command__prompt">
 					${" "}
@@ -25,11 +25,10 @@ export function CopyCommand({ command, primary = false }: { command: string; pri
 			</code>
 			<Button
 				type="button"
-				size="sm"
-				variant={primary ? "default" : "outline"}
+				size="lg"
 				onClick={async () => setState(await copyText(command, globalThis.navigator?.clipboard))}
 			>
-				{labels.idle}
+				{labels[state]}
 			</Button>
 			<span aria-live="polite" className="copy-command__status" data-state={state}>
 				{state === "idle" ? "" : labels[state]}
