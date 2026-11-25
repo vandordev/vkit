@@ -238,7 +238,7 @@
 }
 /* The step on the reading line is fully opaque; its neighbours recede. */
 :root[data-chapter] .vk-steps .vk-step {
-	opacity: 0.38;
+	opacity: 0.55;
 }
 :root[data-chapter] .vk-steps .vk-step[data-active] {
 	opacity: 1;
@@ -425,45 +425,6 @@
 		transform: translate(-50%, calc(-100% + 4px));
 	}
 }
-.vk-legend {
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: space-between;
-	gap: 6px 20px;
-	padding: 12px 20px 14px;
-	border-top: 1px solid var(--vk-line);
-	font-size: 0.8125rem;
-	color: var(--vk-mute);
-}
-.vk-legend__key {
-	display: inline-flex;
-	align-items: center;
-	gap: 6px;
-}
-.vk-legend i {
-	display: inline-block;
-	width: 10px;
-	height: 11px;
-	margin-left: 8px;
-	clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
-	background: var(--vk-mute);
-}
-.vk-legend i:first-child {
-	margin-left: 0;
-}
-.vk-legend i[data-lang="go"] {
-	background: var(--viz-3);
-}
-.vk-legend i[data-lang="ts"] {
-	background: var(--viz-1);
-}
-.vk-legend i[data-kind="package"] {
-	background: transparent;
-	box-shadow: inset 0 0 0 1.5px var(--vk-mute);
-	clip-path: none;
-	border-radius: 2px;
-}
-
 /* Stack layers */
 .vk-layer h3 {
 	font-size: var(--vk-text-lg);
@@ -515,28 +476,25 @@
 	line-height: 1.3;
 }
 
-/* Stage card: the chapter's real command, typed into a small terminal over the graph. */
-.vk-card {
-	position: absolute;
-	right: 20px;
-	bottom: 108px;
-	z-index: 1;
-	width: min(360px, calc(100% - 40px));
-	padding: 12px 14px;
-	border-radius: 10px;
+/* Dock: the chapter's real command in a terminal pane docked under the graph (never over it). */
+.vk-dock {
+	height: 112px;
+	overflow: hidden;
+	padding: 14px 20px;
 	background: var(--vk-term-bg);
 	color: var(--vk-term-ink);
 	font-family: var(--font-mono);
 	font-size: 0.75rem;
 	line-height: 1.6;
 	font-variant-ligatures: none;
-	box-shadow: 0 14px 30px -18px rgb(0 0 0 / 0.5);
+}
+.vk-dock__body > p:first-child {
 	animation: vk-type 380ms steps(22, end);
 }
-.vk-card__prompt {
+.vk-dock__prompt {
 	color: var(--vk-term-mute);
 }
-.vk-card__out {
+.vk-dock__out {
 	color: var(--vk-term-mute);
 	white-space: pre-wrap;
 	animation: vk-line var(--motion-slow) var(--ease-out) both;
@@ -548,31 +506,64 @@
 	}
 }
 
-/* Scrubber: where you are in the story, one segment per chapter in its accent. */
-.vk-scrub {
-	display: flex;
-	align-items: center;
-	gap: 14px;
-	padding: 10px 20px;
+/* Bar: chapter progress as a hairline in each chapter's accent, legend left, position right. */
+.vk-bar {
 	border-top: 1px solid var(--vk-line);
-	font-family: var(--font-mono);
-	font-size: 0.75rem;
-	color: var(--vk-mute);
 }
-.vk-scrub__track {
-	flex: 1;
+.vk-bar__track {
 	display: grid;
 	grid-template-columns: repeat(5, minmax(0, 1fr));
-	gap: 4px;
+	gap: 2px;
+	margin-top: -1px;
 }
-.vk-scrub__seg {
-	height: 4px;
-	border-radius: 2px;
-	background: var(--vk-line);
+.vk-bar__track span {
+	height: 2px;
+	background: transparent;
 	transition: background var(--motion-slow) var(--ease-out);
 }
-.vk-scrub__seg[data-on] {
+.vk-bar__track span[data-on] {
 	background: var(--seg, var(--foreground));
+}
+.vk-bar__row {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	gap: 6px 20px;
+	padding: 10px 20px 12px;
+	font-size: 0.8125rem;
+	color: var(--vk-mute);
+}
+.vk-bar__key {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+}
+.vk-bar__label {
+	font-family: var(--font-mono);
+	font-size: 0.75rem;
+}
+.vk-bar i {
+	display: inline-block;
+	width: 10px;
+	height: 11px;
+	margin-left: 8px;
+	clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
+	background: var(--vk-mute);
+}
+.vk-bar i:first-child {
+	margin-left: 0;
+}
+.vk-bar i[data-lang="go"] {
+	background: var(--viz-3);
+}
+.vk-bar i[data-lang="ts"] {
+	background: var(--viz-1);
+}
+.vk-bar i[data-kind="package"] {
+	background: transparent;
+	box-shadow: inset 0 0 0 1.5px var(--vk-mute);
+	clip-path: none;
+	border-radius: 2px;
 }
 
 /* Sections */
@@ -613,6 +604,9 @@
 .vk-tree__name {
 	color: var(--foreground);
 }
+.vk-tree__more {
+	color: var(--vk-mute);
+}
 .vk-tree__name[data-dir] {
 	font-weight: 600;
 }
@@ -620,8 +614,7 @@
 	font-family: var(--font-sans);
 	color: var(--vk-mute);
 }
-.vk-tree__children,
-.vk-tree__rest {
+.vk-tree__children {
 	grid-column: 2;
 	display: flex;
 	flex-wrap: wrap;
@@ -785,8 +778,8 @@
 		min-height: 0;
 		padding-top: 40px;
 	}
-	.vk-legend,
-	.vk-card {
+	.vk-dock,
+	.vk-bar__key {
 		display: none;
 	}
 	.vk-steps > .vk-step,
@@ -820,8 +813,8 @@
 @media (prefers-reduced-motion: reduce) {
 	.vk-cmd__line,
 	.vk-graph__tip,
-	.vk-card,
-	.vk-card__out {
+	.vk-dock__body > p:first-child,
+	.vk-dock__out {
 		animation: none;
 	}
 }

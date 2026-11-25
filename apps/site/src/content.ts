@@ -44,6 +44,8 @@ export type Kit = {
 	name: KitName;
 	backend: "Go" | "TypeScript";
 	summary: string;
+	/** One line under the kit tabs in the hero. */
+	tagline: string;
 	stackLine: string;
 	repoUrl: string;
 	facts: KitData;
@@ -63,6 +65,7 @@ export const kits: readonly Kit[] = [
 	{
 		name: "zenith",
 		backend: "Go",
+		tagline: "Multi-tenant SaaS foundation",
 		summary: "Multi-tenant SaaS foundation: customer auth, organizations and memberships, a staff backoffice with audit, and a public API keyed by organization API keys.",
 		stackLine: "Go (Echo, Huma, pgx, River) · TanStack Start · PostgreSQL",
 		repoUrl: repo("zenith"),
@@ -176,6 +179,7 @@ export const kits: readonly Kit[] = [
 	{
 		name: "orbit",
 		backend: "TypeScript",
+		tagline: "Document-processing reference app",
 		summary: "A complete TypeScript reference application for document processing that shows the architecture end to end. Start from it and replace the domain.",
 		stackLine: "TanStack Start + tRPC · Elysia · Prisma · BullMQ/Redis · Socket.IO",
 		repoUrl: repo("orbit"),

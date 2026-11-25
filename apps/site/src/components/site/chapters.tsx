@@ -43,7 +43,9 @@ export function HeroCopy() {
 			</div>
 			{kits.map((kit) => (
 				<p key={kit.name} className="vk-hero__kit" data-kit={kit.name}>
-					<b>{kit.name}</b> · {kit.summary}
+					<b>{kit.name}</b> {kit.backend} · {kit.tagline} · {kit.facts.apps} apps, {kit.facts.packages} packages
+					{kit.facts.adrs ? `, ${kit.facts.adrs} ADRs` : ""} ·{" "}
+					<a href={`${kit.repoUrl}/tree/${kit.facts.commit}`}>@{kit.facts.commit.slice(0, 7)}</a>
 				</p>
 			))}
 		</section>
@@ -115,8 +117,7 @@ export function DiskChapter() {
 									</li>
 								))}
 								<li className="vk-tree__row">
-									<span className="vk-tree__name">+ {rest.length} more</span>
-									<span className="vk-tree__rest">{rest.map((e) => `${e.name}${e.dir ? "/" : ""}`).join("  ")}</span>
+									<span className="vk-tree__name vk-tree__more">+ {rest.length} more files</span>
 								</li>
 							</ul>
 						</div>
