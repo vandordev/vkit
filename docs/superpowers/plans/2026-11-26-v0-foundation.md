@@ -48,32 +48,32 @@ Gate: `git diff --check` clean; each file's content checked against spec Scope �
 
 **Files:** Create `LICENSE`, `.gitignore` (`node_modules/`, `.next/`, `out/`, `.turbo/`, `*.tsbuildinfo`, `.env*`, `.vercel/`).
 
-- [ ] Create branch: `git switch -c alfarizi/feat/v0-foundation`
-- [ ] Write the standard MIT text with the copyright line from Global Constraints.
-- [ ] Commit spec, plan, LICENSE, .gitignore: `docs: add v0 spec, plan and MIT license`
+- [x] Create branch: `git switch -c alfarizi/feat/v0-foundation`
+- [x] Write the standard MIT text with the copyright line from Global Constraints.
+- [x] Commit spec, plan, LICENSE, .gitignore: `docs: add v0 spec, plan and MIT license`
 
 ### Task 2: README.md and ROADMAP.md
 
 **Files:** Create `README.md`, `ROADMAP.md`.
 
-- [ ] README: one-paragraph intro; a table of the two kits (name, backend, what
+- [x] README: one-paragraph intro; a table of the two kits (name, backend, what
   it is, start command); "Repository layout" (`site/` now, generator folders from
   v1); link to ROADMAP and LICENSE.
-- [ ] ROADMAP: v0–v3+ exactly as spec Scope §1 `ROADMAP.md` bullet, including
+- [x] ROADMAP: v0–v3+ exactly as spec Scope §1 `ROADMAP.md` bullet, including
   v1.0/v1.1/v1.x staging, the better-t-stack borrowing rule (engine and tests,
   MIT notice kept, not stack templates), CI matrix, and "Only v0 is fixed".
-- [ ] Commit: `docs: add readme and roadmap`
+- [x] Commit: `docs: add readme and roadmap`
 
 ### Task 3: AGENTS.md and CLAUDE.md
 
 **Files:** Create `AGENTS.md`, `CLAUDE.md` (pointer only, same wording pattern as
 zenith's `CLAUDE.md`).
 
-- [ ] AGENTS.md sections: Start here (read ROADMAP, current spec/plan in
+- [x] AGENTS.md sections: Start here (read ROADMAP, current spec/plan in
   `docs/superpowers/{specs,plans}`); Rules (the four rules of spec Scope §1
   `AGENTS.md` bullet, with the `.mjs` exception from Global Constraints);
   Site commands (filled in Task 4).
-- [ ] Commit: `docs: add agent instructions`
+- [x] Commit: `docs: add agent instructions`
 
 ## Batch 2: Site foundation
 
