@@ -125,6 +125,17 @@ Vercel Hobby's non-commercial rule turns out to apply.
 
 ## Decided
 
+- 2026-11-26 revision (after first build): the repository is a Bun-workspaces
+  monorepo like zenith: `apps/site` now, `apps/cli` and more `packages/*` in v1.
+  Turborepo joins when a second app arrives. `apps/site` uses TanStack Start with
+  static prerendering (the framework of zenith/orbit `apps/web`), replacing the
+  Next.js export. Design combines zenith `apps/landing` (nav, hero, bento tiles,
+  closing CTA, footer, its light-only `landing.css`) with the kit picker and copy
+  command as bento tiles. `packages/brand` and `packages/ui` are copied from
+  zenith so landing components keep their `@repo/*` imports. This supersedes
+  `site/`, the Next.js bullets in Design, and the dark-mode check (zenith's
+  landing is light only).
+
 - Site and all repository text are English.
 - zenith and orbit are v0 entry points only; v1 is a generator composed from
   their fragments, v2 adds setups after init (see ROADMAP above).

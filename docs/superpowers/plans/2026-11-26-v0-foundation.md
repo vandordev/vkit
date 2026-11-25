@@ -193,6 +193,26 @@ Independent of Batches 2–3. Gate: each repo's branch has exactly one new commi
 - [x] Clone `https://github.com/vandordev/vkit-orbit.git` to `~/dev/vandor/vkit-orbit`
   (absent locally), then the same steps as Task 10.
 
+## Batch 4b: Monorepo and TanStack Start rework (spec revision 2026-11-26)
+
+Goal: replace `site/` with `apps/site` (TanStack Start, prerendered) in a Bun-workspaces
+monorepo, design from zenith `apps/landing` plus kit picker and copy command.
+Depends on: Batches 1–3 (reuses `content.ts`, `copy.ts` and their tests).
+Gate: from the root, `bun install --frozen-lockfile`; in `apps/site`, check-types, lint,
+test, build pass and the build output contains a prerendered `index.html` with both
+start commands. Invalidates: Task 9 checks and Task 12's site gate (rerun in Batch 5).
+
+- [ ] Root `package.json` (workspaces `apps/*`, `packages/*`), move to `apps/site`,
+  `packages/brand` and `packages/ui` (button, loading-arc, display-heading, zenith-mark,
+  styles) copied from zenith; delete `site/`. Commit `refactor: convert to bun workspaces monorepo`.
+- [ ] `apps/site` on TanStack Start + Vite + Tailwind v4, versions from zenith `apps/web`,
+  static prerender of `/`. Commit `feat(site): move to tanstack start`.
+- [ ] Copy zenith landing components and `landing.css`; nav, hero, kit bento (two kit
+  radio tiles + wide command tile with `CopyCommand`), closing CTA as "What's next",
+  footer; content from `content.ts`. Commit `feat(site): adopt zenith landing design`.
+- [ ] Rerun Task 9 checks (light only) and the Playwright behavior script; update README,
+  AGENTS.md site commands and paths. Commit `docs: update paths for monorepo`.
+
 ## Batch 5: Final integrated gate
 
 Goal: everything verified together; hand off push and deploy. Depends on: Batches 1–4.
@@ -203,8 +223,7 @@ Goal: everything verified together; hand off push and deploy. Depends on: Batche
   lint, test, build. Expected: all pass.
 - [x] Extract both start commands from `out/index.html` and run each in a new empty
   scratchpad directory. Expected: zenith and orbit trees created (≈1206 and ≈635 files).
-- [x] `git diff --check` in all three repos; no `.js` files under `site/src`
-  (`find site/src -name '*.js*'` returns nothing).
+- [x] `git diff --check` in all three repos; no `.js` files under `apps/*/src`, `packages/*/src`.
 - [x] Re-read the spec Scope and Not doing; confirm each item is done or absent.
 
 ### Task 13: Handoff
@@ -212,7 +231,7 @@ Goal: everything verified together; hand off push and deploy. Depends on: Batche
 - [ ] Report results and ask the user to approve: push the three branches, merge
   the vkit branch into `main`.
 - [ ] Stop condition: the Vercel import is the user's (Hobby, no team, no trial,
-  no card; root directory `site/`). If Hobby cannot import the org repo, ask whether
+  no card; root directory `apps/site`). If Hobby cannot import the org repo, ask whether
   to switch to GitHub Pages (blocks Task 14 only).
 
 ### Task 14: Production URL
