@@ -4,11 +4,11 @@
 	"packageManager": "bun@1.4.2",
 	"workspaces": ["apps/*", "packages/*"],
 	"scripts": {
-		"dev:site": "bun --cwd apps/site run dev",
-		"dev:storybook": "bun --cwd apps/storybook run dev",
-		"build": "bun --cwd apps/site run build",
+		"dev:site": "bun run --cwd apps/site dev",
+		"dev:storybook": "bun run --cwd apps/storybook dev",
+		"build": "bun run --cwd apps/site build",
 		"check-types": "bun run --filter '*' check-types",
 		"lint": "bun run --filter '*' lint",
-		"test": "bun --cwd apps/site run test"
+		"test": "bun run --cwd apps/site test"
 	}
 }
