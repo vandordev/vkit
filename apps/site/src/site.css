@@ -114,6 +114,16 @@
 .vk-nav__links a:hover {
 	color: var(--foreground);
 }
+.vk-nav__icon {
+	display: inline-grid;
+	place-items: center;
+	width: 28px;
+	height: 28px;
+	margin-inline: -5px;
+}
+.vk-nav__icon svg {
+	fill: currentColor;
+}
 .vk-theme {
 	display: inline-flex;
 	padding: 2px;
