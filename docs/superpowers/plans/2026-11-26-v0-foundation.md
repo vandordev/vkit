@@ -1,6 +1,6 @@
 # vkit v0 Foundation Implementation Plan
 
-> **For agentic workers:** Execute inline in the current session. Steps use checkbox (- [ ]) syntax.
+> **For agentic workers:** Execute inline in the current session. Steps use checkbox (- [x]) syntax.
 
 **Goal:** Ship the vkit repository foundation and a static English landing in
 `site/` that points to vkit-zenith and vkit-orbit, plus MIT licenses on all three repos.
@@ -88,19 +88,19 @@ Can invalidate: Batch 1 AGENTS.md "Site commands" (update if script names change
 `site/postcss.config.mjs`, `site/eslint.config.ts`, `site/next-env.d.ts`,
 `site/src/app/layout.tsx`, `site/src/app/page.tsx` (placeholder), `site/src/app/globals.css`, `site/bun.lock`.
 
-- [ ] `package.json`: `"name": "vkit-site"`, private, `"type": "module"`, scripts
+- [x] `package.json`: `"name": "vkit-site"`, private, `"type": "module"`, scripts
   `dev` (`next dev --hostname 127.0.0.1 --port 3002`), `build`, `check-types`
   (`tsc --noEmit`), `lint` (`eslint .`), `test` (`bun test`); dependency versions
   copied from zenith `apps/landing`, `packages/ui`, `packages/brand`,
   `packages/eslint-config` (`@eslint/js`, `typescript-eslint`, `eslint`),
   plus `jiti` (ESLint 9 needs it to load `eslint.config.ts`).
-- [ ] `tsconfig.json`: zenith `packages/typescript-config/base.json` options inlined,
+- [x] `tsconfig.json`: zenith `packages/typescript-config/base.json` options inlined,
   plus Next options from its `nextjs.json`, but `"allowJs": false`, `"paths": {"@/*": ["./src/*"]}`.
-- [ ] `next.config.ts`: `output: "export"`; no `transpilePackages`.
-- [ ] `eslint.config.ts`: `js.configs.recommended` + `tseslint.configs.recommended`,
+- [x] `next.config.ts`: `output: "export"`; no `transpilePackages`.
+- [x] `eslint.config.ts`: `js.configs.recommended` + `tseslint.configs.recommended`,
   ignores `.next/**`, `out/**`, `next-env.d.ts` (no turbo/only-warn plugins: lint must fail on errors).
-- [ ] `bun install`, then run the four scripts. Expected: pass; `out/index.html` exists.
-- [ ] Fill AGENTS.md "Site commands"; commit: `feat(site): scaffold static next app`
+- [x] `bun install`, then run the four scripts. Expected: pass; `out/index.html` exists.
+- [x] Fill AGENTS.md "Site commands"; commit: `feat(site): scaffold static next app`
 
 ### Task 5: Brand and UI components
 
@@ -108,15 +108,15 @@ Can invalidate: Batch 1 AGENTS.md "Site commands" (update if script names change
 `site/public/{favicon.svg,logo.svg}`, `site/src/components/ui/{button,loading-arc,display-heading,zenith-mark}.tsx`,
 `site/src/components/ui/styles.css`.
 
-- [ ] Copy from zenith `packages/brand/src` and `packages/brand/assets/logo.svg`;
+- [x] Copy from zenith `packages/brand/src` and `packages/brand/assets/logo.svg`;
   `brand.ts` exports `brand = { name: "vkit" } as const`.
-- [ ] Copy the four components from zenith `packages/ui/src/components/ui/`;
+- [x] Copy the four components from zenith `packages/ui/src/components/ui/`;
   rewrite `@repo/brand*` imports to `@/brand/*`; copy only the rules of zenith
   `packages/ui/src/styles.css` the four components use.
-- [ ] First line of each copied file: `// shortcut: copied from vkit-zenith <path>; upstream to the @vandor registry, then install from it.`
-- [ ] Stop condition: if a component needs files beyond these four plus helpers,
+- [x] First line of each copied file: `// shortcut: copied from vkit-zenith <path>; upstream to the @vandor registry, then install from it.`
+- [x] Stop condition: if a component needs files beyond these four plus helpers,
   copy them with the same comment and list them in the commit body (blocks Task 8 only).
-- [ ] Run check-types and lint. Expected: pass. Commit: `feat(site): add brand and ui components from zenith`
+- [x] Run check-types and lint. Expected: pass. Commit: `feat(site): add brand and ui components from zenith`
 
 ### Task 6: Typed content module
 
@@ -126,14 +126,14 @@ Can invalidate: Batch 1 AGENTS.md "Site commands" (update if script names change
 `kits: readonly Kit[]`, `hero: { title: string; lead: string }`, `nextSteps: readonly { version: string; text: string }[]`,
 `siteUrl: string`, `roadmapUrl: string`.
 
-- [ ] Write `content.test.ts`: for each kit, `startCommand === \`bunx giget gh:vandordev/vkit-${name} my-app\``
+- [x] Write `content.test.ts`: for each kit, `startCommand === \`bunx giget gh:vandordev/vkit-${name} my-app\``
   and `repoUrl === \`https://github.com/vandordev/vkit-${name}\``; `kits.map(k => k.name)` equals `["zenith", "orbit"]`.
-- [ ] Run `bun test`. Expected: FAIL (module missing).
-- [ ] Write `content.ts` with the card copy from spec Scope §2 (orbit as reference
+- [x] Run `bun test`. Expected: FAIL (module missing).
+- [x] Write `content.ts` with the card copy from spec Scope §2 (orbit as reference
   application), hero copy, v1/v2 next steps, `roadmapUrl` =
   `https://github.com/vandordev/vkit/blob/main/ROADMAP.md`, `siteUrl` =
   `https://vkit.vercel.app` with comment `// replaced by the real URL after the Vercel import (Task 14)`.
-- [ ] Run `bun test`. Expected: PASS. Commit: `feat(site): add typed landing content`
+- [x] Run `bun test`. Expected: PASS. Commit: `feat(site): add typed landing content`
 
 ## Batch 3: Landing page
 
@@ -148,34 +148,34 @@ Can invalidate: Task 6 copy (if layout forces copy changes, update test values t
 **Interfaces:** Produces `copyText(text: string, clipboard: Pick<Clipboard, "writeText"> | undefined): Promise<"copied" | "failed">`;
 `<CopyCommand command={string} />`.
 
-- [ ] Tests: resolving `writeText` → `"copied"` and called with the text; rejecting → `"failed"`; `undefined` clipboard → `"failed"`.
-- [ ] Run `bun test`. Expected: FAIL.
-- [ ] Implement `copyText`; `CopyCommand` renders the command in `<code>` (selectable,
+- [x] Tests: resolving `writeText` → `"copied"` and called with the text; rejecting → `"failed"`; `undefined` clipboard → `"failed"`.
+- [x] Run `bun test`. Expected: FAIL.
+- [x] Implement `copyText`; `CopyCommand` renders the command in `<code>` (selectable,
   wraps inside its box) and a `Button` labelled "Copy", showing "Copied" or
   "Copy failed" for 2 s, announced via `aria-live="polite"`.
-- [ ] Run `bun test`. Expected: PASS. Commit: `feat(site): add copyable start command`
+- [x] Run `bun test`. Expected: PASS. Commit: `feat(site): add copyable start command`
 
 ### Task 8: Page sections
 
 **Files:** Create `site/src/app/_components/{hero,kit-card,next-steps,site-footer}.tsx`,
 `site/src/app/landing.css`, `site/src/lib/seo.ts`, `site/src/app/{robots.ts,sitemap.ts}`; modify `page.tsx`, `layout.tsx`.
 
-- [ ] Load the `impeccable` skill and design the page with it; one primary action
+- [x] Load the `impeccable` skill and design the page with it; one primary action
   (hero copy of the zenith command); reuse zenith landing's section structure
   only where it fits.
-- [ ] Sections render `content.ts` values only (no hard-coded copy in components).
-- [ ] `seo.ts`: title "vkit", description from `hero.lead`, `metadataBase` from `siteUrl`;
+- [x] Sections render `content.ts` values only (no hard-coded copy in components).
+- [x] `seo.ts`: title "vkit", description from `hero.lead`, `metadataBase` from `siteUrl`;
   robots/sitemap as in zenith `apps/landing/src/app/{robots,sitemap}.ts`.
-- [ ] Batch 2 gate commands pass. Commit: `feat(site): build landing page`
+- [x] Batch 2 gate commands pass. Commit: `feat(site): build landing page`
 
 ### Task 9: Rendered checks
 
-- [ ] Serve `out/` (`bunx serve out -l 3002`) and screenshot with the browser from
+- [x] Serve `out/` (`bunx serve out -l 3002`) and screenshot with the browser from
   the `orca-cli` skill: 1280 px and 375 px, light and dark.
-- [ ] Verify Review Focus 2–5: no horizontal scroll at 375 px; dark tokens readable;
+- [x] Verify Review Focus 2–5: no horizontal scroll at 375 px; dark tokens readable;
   reduced motion disables animation; with JavaScript disabled, commands and links show.
-- [ ] Keyboard: Tab reaches each Copy button, Enter copies, focus ring visible.
-- [ ] Fix and commit any finding: `fix(site): <finding>`
+- [x] Keyboard: Tab reaches each Copy button, Enter copies, focus ring visible.
+- [x] Fix and commit any finding: `fix(site): <finding>`
 
 ## Batch 4: Kit licenses
 
@@ -184,13 +184,13 @@ Independent of Batches 2–3. Gate: each repo's branch has exactly one new commi
 
 ### Task 10: zenith license
 
-- [ ] In `~/dev/vandor/vkit-zenith`: `git status --short` (stop if dirty files would
+- [x] In `~/dev/vandor/vkit-zenith`: `git status --short` (stop if dirty files would
   be touched; never stash), `git switch -c alfarizi/chore/mit-license`, copy `LICENSE`
   from vkit, commit `chore: add MIT license`.
 
 ### Task 11: orbit license
 
-- [ ] Clone `https://github.com/vandordev/vkit-orbit.git` to `~/dev/vandor/vkit-orbit`
+- [x] Clone `https://github.com/vandordev/vkit-orbit.git` to `~/dev/vandor/vkit-orbit`
   (absent locally), then the same steps as Task 10.
 
 ## Batch 5: Final integrated gate
@@ -199,13 +199,13 @@ Goal: everything verified together; hand off push and deploy. Depends on: Batche
 
 ### Task 12: Full gate
 
-- [ ] In `site/`: clean install `bun install --frozen-lockfile`, then check-types,
+- [x] In `site/`: clean install `bun install --frozen-lockfile`, then check-types,
   lint, test, build. Expected: all pass.
-- [ ] Extract both start commands from `out/index.html` and run each in a new empty
+- [x] Extract both start commands from `out/index.html` and run each in a new empty
   scratchpad directory. Expected: zenith and orbit trees created (≈1206 and ≈635 files).
-- [ ] `git diff --check` in all three repos; no `.js` files under `site/src`
+- [x] `git diff --check` in all three repos; no `.js` files under `site/src`
   (`find site/src -name '*.js*'` returns nothing).
-- [ ] Re-read the spec Scope and Not doing; confirm each item is done or absent.
+- [x] Re-read the spec Scope and Not doing; confirm each item is done or absent.
 
 ### Task 13: Handoff
 
