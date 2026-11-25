@@ -215,6 +215,18 @@ start commands. Invalidates: Task 9 checks and Task 12's site gate (rerun in Bat
 - [x] `apps/storybook` from zenith's pattern with stories for ui, brand and landing
   components; `storybook build` passes. Commit `feat(storybook): add shared storybook`.
 
+## Batch 4c: Developer-tool landing redesign (user-approved after research of 18 landings)
+
+Goal: replace the SaaS-style landing with "repository as the interface": hero terminal
+(kit tabs × bun/npm/pnpm tabs, copy), generated file tree, verifiable facts, decisions,
+"for agents" copy-prompt, light/dark with system default; roadmap on `/roadmap` from
+ROADMAP.md. Gate: Batch 4b gate plus both routes prerendered, no-JS tab switching,
+theme switch persists, Storybook builds.
+
+- [x] `scripts/gen-kits.ts` (GitHub trees API → `src/kits.generated.json`) with tested pure helpers.
+- [x] Theme (zenith `theme.ts` pattern), new `site.css`, sections and stories.
+- [x] `/roadmap` route rendering ROADMAP.md; verify, commit.
+
 ## Batch 5: Final integrated gate
 
 Goal: everything verified together; hand off push and deploy. Depends on: Batches 1–4.

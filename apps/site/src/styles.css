@@ -1,8 +1,7 @@
 @import "tailwindcss";
 @import "@repo/brand/tokens.css";
 @import "@repo/ui/styles.css";
-@import "./components/landing/landing.css";
-@import "./components/landing/kits.css";
+@import "./site.css";
 
 @source "../../../packages/ui/src";
 

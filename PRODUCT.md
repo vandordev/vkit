@@ -28,7 +28,7 @@ running project (v2).
 
 ## Capabilities and Constraints
 
-- v0 is a static page: no accounts, forms, analytics or cookies.
+- v0 is a prerendered static site (landing and roadmap): no accounts, forms, analytics or cookies; light and dark themes follow the system by default.
 - Start command: `bunx giget gh:vandordev/vkit-<name> my-app`.
 - Frontends are TypeScript only. All site text is English.
 - Generator (v1) and setups (v2) do not exist yet; present them as roadmap only.

@@ -4,7 +4,7 @@ Only v0 is fixed. Later versions describe the direction and may change.
 
 ## v0: home
 
-- This repository, the landing page in `site/`, MIT licenses on vkit, vkit-zenith
+- This repository, the landing page in `apps/site` with its roadmap page, MIT licenses on vkit, vkit-zenith
   and vkit-orbit.
 - Start from zenith or orbit with `bunx giget gh:vandordev/vkit-<name> my-app`.
 - zenith and orbit are the v0 entry points only.

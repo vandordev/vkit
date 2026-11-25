@@ -1,0 +1,348 @@
+{
+	"zenith": {
+		"apps": 8,
+		"packages": 14,
+		"adrs": 13,
+		"tree": [
+			{
+				"name": ".agent",
+				"dir": true
+			},
+			{
+				"name": ".husky",
+				"dir": true
+			},
+			{
+				"name": "apps",
+				"dir": true,
+				"children": [
+					"api",
+					"bo",
+					"bo-api",
+					"landing",
+					"storybook",
+					"web",
+					"web-api",
+					"worker"
+				]
+			},
+			{
+				"name": "config",
+				"dir": true
+			},
+			{
+				"name": "contracts",
+				"dir": true
+			},
+			{
+				"name": "docs",
+				"dir": true
+			},
+			{
+				"name": "packages",
+				"dir": true,
+				"children": [
+					"application",
+					"brand",
+					"config",
+					"db",
+					"email",
+					"eslint-config",
+					"fixtures",
+					"secrets",
+					"storage",
+					"tools",
+					"typescript-config",
+					"ui",
+					"ui-email",
+					"ui-utils"
+				]
+			},
+			{
+				"name": "patches",
+				"dir": true
+			},
+			{
+				"name": "scripts",
+				"dir": true
+			},
+			{
+				"name": ".dockerignore",
+				"dir": false
+			},
+			{
+				"name": ".env.example",
+				"dir": false
+			},
+			{
+				"name": ".gitignore",
+				"dir": false
+			},
+			{
+				"name": ".npmrc",
+				"dir": false
+			},
+			{
+				"name": ".prettierignore",
+				"dir": false
+			},
+			{
+				"name": ".prettierrc.json",
+				"dir": false
+			},
+			{
+				"name": "AGENTS.md",
+				"dir": false
+			},
+			{
+				"name": "bun.lock",
+				"dir": false
+			},
+			{
+				"name": "CLAUDE.md",
+				"dir": false
+			},
+			{
+				"name": "CONTRIBUTING.md",
+				"dir": false
+			},
+			{
+				"name": "docker-compose.yml",
+				"dir": false
+			},
+			{
+				"name": "Dockerfile.api",
+				"dir": false
+			},
+			{
+				"name": "Dockerfile.bo",
+				"dir": false
+			},
+			{
+				"name": "Dockerfile.bo-api",
+				"dir": false
+			},
+			{
+				"name": "Dockerfile.web",
+				"dir": false
+			},
+			{
+				"name": "Dockerfile.web-api",
+				"dir": false
+			},
+			{
+				"name": "Dockerfile.worker",
+				"dir": false
+			},
+			{
+				"name": "go.work",
+				"dir": false
+			},
+			{
+				"name": "go.work.sum",
+				"dir": false
+			},
+			{
+				"name": "LICENSE",
+				"dir": false
+			},
+			{
+				"name": "package.json",
+				"dir": false
+			},
+			{
+				"name": "PRODUCT.md",
+				"dir": false
+			},
+			{
+				"name": "README.md",
+				"dir": false
+			},
+			{
+				"name": "SECURITY.md",
+				"dir": false
+			},
+			{
+				"name": "Taskfile.yml",
+				"dir": false
+			},
+			{
+				"name": "turbo.json",
+				"dir": false
+			}
+		],
+		"tables": 21,
+		"commit": "99ed0c79b04b2bbe5e4d3423e0505d9f8666379c"
+	},
+	"orbit": {
+		"apps": 7,
+		"packages": 11,
+		"adrs": 0,
+		"tree": [
+			{
+				"name": ".agent",
+				"dir": true
+			},
+			{
+				"name": ".github",
+				"dir": true
+			},
+			{
+				"name": ".husky",
+				"dir": true
+			},
+			{
+				"name": "apps",
+				"dir": true,
+				"children": [
+					"api",
+					"migrate",
+					"realtime",
+					"scheduler",
+					"storybook",
+					"web",
+					"worker"
+				]
+			},
+			{
+				"name": "config",
+				"dir": true
+			},
+			{
+				"name": "contracts",
+				"dir": true
+			},
+			{
+				"name": "deploy",
+				"dir": true
+			},
+			{
+				"name": "dev",
+				"dir": true
+			},
+			{
+				"name": "docs",
+				"dir": true
+			},
+			{
+				"name": "packages",
+				"dir": true,
+				"children": [
+					"application",
+					"brand",
+					"components",
+					"config",
+					"db",
+					"eslint-config",
+					"query",
+					"queue",
+					"realtime",
+					"storage",
+					"typescript-config"
+				]
+			},
+			{
+				"name": "recipes",
+				"dir": true
+			},
+			{
+				"name": "scripts",
+				"dir": true
+			},
+			{
+				"name": ".dockerignore",
+				"dir": false
+			},
+			{
+				"name": ".env.example",
+				"dir": false
+			},
+			{
+				"name": ".gitignore",
+				"dir": false
+			},
+			{
+				"name": ".npmrc",
+				"dir": false
+			},
+			{
+				"name": ".prettierignore",
+				"dir": false
+			},
+			{
+				"name": ".prettierrc.json",
+				"dir": false
+			},
+			{
+				"name": "AGENTS.md",
+				"dir": false
+			},
+			{
+				"name": "bun.lock",
+				"dir": false
+			},
+			{
+				"name": "CONTRIBUTING.md",
+				"dir": false
+			},
+			{
+				"name": "docker-compose.yml",
+				"dir": false
+			},
+			{
+				"name": "Dockerfile.api",
+				"dir": false
+			},
+			{
+				"name": "Dockerfile.migrate",
+				"dir": false
+			},
+			{
+				"name": "Dockerfile.realtime",
+				"dir": false
+			},
+			{
+				"name": "Dockerfile.scheduler",
+				"dir": false
+			},
+			{
+				"name": "Dockerfile.web",
+				"dir": false
+			},
+			{
+				"name": "Dockerfile.worker",
+				"dir": false
+			},
+			{
+				"name": "LICENSE",
+				"dir": false
+			},
+			{
+				"name": "package.json",
+				"dir": false
+			},
+			{
+				"name": "PRODUCT.md",
+				"dir": false
+			},
+			{
+				"name": "README.md",
+				"dir": false
+			},
+			{
+				"name": "SECURITY.md",
+				"dir": false
+			},
+			{
+				"name": "Taskfile.yml",
+				"dir": false
+			},
+			{
+				"name": "turbo.json",
+				"dir": false
+			}
+		],
+		"tables": 14,
+		"commit": "2aaae27ea8d1eee86ae70fa01daf9ffd164e198b"
+	}
+}

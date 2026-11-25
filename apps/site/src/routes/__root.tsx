@@ -2,6 +2,7 @@ import { HeadContent, Scripts, createRootRoute } from "@tanstack/react-router";
 import type { ReactNode } from "react";
 import { brand } from "@repo/brand";
 import { hero, siteUrl } from "@/content";
+import { themeInitScript } from "@/lib/theme";
 import appCss from "@/styles.css?url";
 
 const title = `${brand.name} — ${hero.title}`;
@@ -18,6 +19,7 @@ export const Route = createRootRoute({
 			{ property: "og:type", content: "website" },
 			{ property: "og:url", content: `${siteUrl}/` },
 		],
+		scripts: [{ children: themeInitScript }],
 		links: [
 			{ rel: "stylesheet", href: appCss },
 			{ rel: "icon", href: "/favicon.svg" },

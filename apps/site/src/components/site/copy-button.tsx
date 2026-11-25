@@ -1,12 +1,10 @@
-"use client";
-
 import { useEffect, useState } from "react";
 import { Button } from "@repo/ui/button";
 import { copyText, type CopyResult } from "@/lib/copy";
 
 const labels: Record<CopyResult | "idle", string> = { idle: "Copy", copied: "Copied", failed: "Copy failed" };
 
-export function CopyCommand({ command }: { command: string }) {
+export function CopyButton({ text, label = "Copy", variant = "default" }: { text: string; label?: string; variant?: "default" | "outline" }) {
 	const [state, setState] = useState<CopyResult | "idle">("idle");
 
 	useEffect(() => {
@@ -16,23 +14,13 @@ export function CopyCommand({ command }: { command: string }) {
 	}, [state]);
 
 	return (
-		<div className="copy-command">
-			<code className="copy-command__text">
-				<span aria-hidden="true" className="copy-command__prompt">
-					${" "}
-				</span>
-				{command}
-			</code>
-			<Button
-				type="button"
-				size="lg"
-				onClick={async () => setState(await copyText(command, globalThis.navigator?.clipboard))}
-			>
-				{labels[state]}
+		<>
+			<Button type="button" size="sm" variant={variant} onClick={async () => setState(await copyText(text, globalThis.navigator?.clipboard))}>
+				{state === "idle" ? label : labels[state]}
 			</Button>
-			<span aria-live="polite" className="copy-command__status" data-state={state}>
+			<span aria-live="polite" className="vk-sr">
 				{state === "idle" ? "" : labels[state]}
 			</span>
-		</div>
+		</>
 	);
 }

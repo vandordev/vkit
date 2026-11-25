@@ -7,13 +7,16 @@
 		"build": "vite build",
 		"check-types": "tsc --noEmit",
 		"lint": "eslint .",
-		"test": "bun test src"
+		"test": "bun test src",
+		"gen:kits": "bun run scripts/gen-kits.ts"
 	},
 	"dependencies": {
 		"@repo/brand": "*",
 		"@repo/ui": "*",
 		"@tanstack/react-router": "1.170.41",
 		"@tanstack/react-start": "1.168.60",
+		"lucide-react": "^0.562.0",
+		"marked": "15.0.12",
 		"react": "^19.2.0",
 		"react-dom": "^19.2.0"
 	},

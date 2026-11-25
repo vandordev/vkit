@@ -1,11 +1,11 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { LandingPage } from "./landing-page";
-import { withLandingFrame } from "./story-frame";
+import { withSiteFrame } from "./story-frame";
 
 const meta = {
-	title: "Site/Landing/Page",
+	title: "Site/Landing page",
 	component: LandingPage,
-	decorators: [withLandingFrame],
+	decorators: [withSiteFrame],
 	parameters: { layout: "fullscreen" },
 } satisfies Meta<typeof LandingPage>;
 
