@@ -1,5 +1,27 @@
+import {
+	siBun,
+	siCloudflare,
+	siDocker,
+	siGo,
+	siMinio,
+	siOpenapiinitiative,
+	siPostgresql,
+	siPrisma,
+	siReact,
+	siRedis,
+	siResend,
+	siSocketdotio,
+	siStorybook,
+	siTailwindcss,
+	siTask,
+	siTrpc,
+	siTurborepo,
+	siTypescript,
+	siZod,
+	type SimpleIcon,
+} from "simple-icons";
 import generated from "./kits.generated.json";
-import type { KitFacts } from "./lib/kit-facts";
+import { parseKitData, type KitData } from "./lib/kit-facts";
 
 export const kitNames = ["zenith", "orbit"] as const;
 export type KitName = (typeof kitNames)[number];
@@ -13,19 +35,24 @@ export const startCommand = (kit: KitName, pm: PackageManager) => `${runners[pm]
 
 export type Decision = { title: string; text: string; source: string };
 
+/** A technology with its Simple Icons logo; tools without one in Simple Icons render as a monogram, never a guessed logo. */
+export type Tech = { name: string; role: string; icon?: SimpleIcon };
+export type StackLayer = { layer: "Backend" | "Frontend" | "Data and jobs" | "Tooling"; items: readonly Tech[] };
+
 export type Kit = {
 	name: KitName;
 	backend: "Go" | "TypeScript";
 	summary: string;
-	stack: string;
+	stackLine: string;
 	repoUrl: string;
-	facts: KitFacts & { commit: string };
+	facts: KitData;
 	tablesLabel: string;
 	/** One line per top-level path a visitor would ask about; unlisted paths show without a note. */
 	notes: Record<string, string>;
 	decisionsTitle: string;
 	decisions: readonly Decision[];
 	agentPrompt: string;
+	stack: readonly StackLayer[];
 };
 
 const repo = (name: KitName) => `https://github.com/vandordev/vkit-${name}`;
@@ -36,9 +63,9 @@ export const kits: readonly Kit[] = [
 		name: "zenith",
 		backend: "Go",
 		summary: "Multi-tenant SaaS foundation: customer auth, organizations and memberships, a staff backoffice with audit, and a public API keyed by organization API keys.",
-		stack: "Go (Echo, Huma, pgx, River) · TanStack Start · PostgreSQL",
+		stackLine: "Go (Echo, Huma, pgx, River) · TanStack Start · PostgreSQL",
 		repoUrl: repo("zenith"),
-		facts: generated.zenith,
+		facts: parseKitData(generated.zenith),
 		tablesLabel: "tables in the baseline",
 		notes: {
 			apps: "Three Go APIs, a River worker, and the TypeScript web, backoffice and landing apps.",
@@ -83,6 +110,46 @@ export const kits: readonly Kit[] = [
 				source: blob("zenith", "docs/adr/0013-risk-based-verification.md"),
 			},
 		],
+		stack: [
+			{
+				layer: "Backend",
+				items: [
+					{ name: "Go", role: "Three APIs and the worker", icon: siGo },
+					{ name: "Echo", role: "HTTP server" },
+					{ name: "Huma", role: "Typed handlers and OpenAPI" },
+					{ name: "OpenAPI", role: "Contracts for generated clients", icon: siOpenapiinitiative },
+				],
+			},
+			{
+				layer: "Frontend",
+				items: [
+					{ name: "TypeScript", role: "Web, backoffice and landing", icon: siTypescript },
+					{ name: "React", role: "UI", icon: siReact },
+					{ name: "TanStack Start", role: "Web and backoffice apps" },
+					{ name: "Tailwind CSS", role: "Styling", icon: siTailwindcss },
+				],
+			},
+			{
+				layer: "Data and jobs",
+				items: [
+					{ name: "PostgreSQL", role: "One database, tenancy in the schema", icon: siPostgresql },
+					{ name: "pgx", role: "Explicit pools and transactions" },
+					{ name: "River", role: "Jobs inside Postgres" },
+					{ name: "Cloudflare R2", role: "Private object storage", icon: siCloudflare },
+					{ name: "Resend", role: "Transactional email", icon: siResend },
+				],
+			},
+			{
+				layer: "Tooling",
+				items: [
+					{ name: "Bun", role: "Package manager and scripts", icon: siBun },
+					{ name: "Turborepo", role: "Monorepo tasks", icon: siTurborepo },
+					{ name: "Task", role: "One command per job", icon: siTask },
+					{ name: "Storybook", role: "UI review", icon: siStorybook },
+					{ name: "Docker", role: "Images per runtime", icon: siDocker },
+				],
+			},
+		],
 		agentPrompt: [
 			"Start a new product from the vkit-zenith foundation.",
 			"",
@@ -99,9 +166,9 @@ export const kits: readonly Kit[] = [
 		name: "orbit",
 		backend: "TypeScript",
 		summary: "A complete TypeScript reference application for document processing that shows the architecture end to end. Start from it and replace the domain.",
-		stack: "TanStack Start + tRPC · Elysia · Prisma · BullMQ/Redis · Socket.IO",
+		stackLine: "TanStack Start + tRPC · Elysia · Prisma · BullMQ/Redis · Socket.IO",
 		repoUrl: repo("orbit"),
-		facts: generated.orbit,
+		facts: parseKitData(generated.orbit),
 		tablesLabel: "Prisma models",
 		notes: {
 			apps: "Web, public API, worker, scheduler, realtime and migrate runtimes.",
@@ -135,6 +202,46 @@ export const kits: readonly Kit[] = [
 				title: "Typed config, no env in features",
 				text: "Runtime config comes from config.yaml through typed getters; browser code never sees server values.",
 				source: blob("orbit", "AGENTS.md"),
+			},
+		],
+		stack: [
+			{
+				layer: "Backend",
+				items: [
+					{ name: "TypeScript", role: "Every runtime", icon: siTypescript },
+					{ name: "Elysia", role: "Public API and realtime publisher" },
+					{ name: "tRPC", role: "Web app to server", icon: siTrpc },
+					{ name: "Zod", role: "Validation and typed config", icon: siZod },
+				],
+			},
+			{
+				layer: "Frontend",
+				items: [
+					{ name: "React", role: "UI", icon: siReact },
+					{ name: "TanStack Start", role: "Web app" },
+					{ name: "Tailwind CSS", role: "Styling", icon: siTailwindcss },
+				],
+			},
+			{
+				layer: "Data and jobs",
+				items: [
+					{ name: "PostgreSQL", role: "Database", icon: siPostgresql },
+					{ name: "Prisma", role: "Schema and client", icon: siPrisma },
+					{ name: "Redis", role: "Queue backend", icon: siRedis },
+					{ name: "BullMQ", role: "Worker and scheduler jobs" },
+					{ name: "Socket.IO", role: "Realtime invalidation", icon: siSocketdotio },
+					{ name: "MinIO", role: "S3-compatible storage", icon: siMinio },
+				],
+			},
+			{
+				layer: "Tooling",
+				items: [
+					{ name: "Bun", role: "Runtime and package manager", icon: siBun },
+					{ name: "Turborepo", role: "Monorepo tasks", icon: siTurborepo },
+					{ name: "Task", role: "One command per job", icon: siTask },
+					{ name: "Storybook", role: "UI review", icon: siStorybook },
+					{ name: "Docker", role: "Images per runtime", icon: siDocker },
+				],
 			},
 		],
 		agentPrompt: [

@@ -227,6 +227,12 @@ theme switch persists, Storybook builds.
 - [x] Theme (zenith `theme.ts` pattern), new `site.css`, sections and stories.
 - [x] `/roadmap` route rendering ROADMAP.md; verify, commit.
 
+## Batch 4d: Live architecture graph and tech stack (user-picked signature)
+
+- [x] `buildGraph` (tested) adds each kit's real app→package dependency graph to `kits.generated.json`; `parseKitData` narrows it.
+- [x] Hero `ArchGraph`: d3-force canvas of hexagons, Go/TS lanes, pointer push, drag, hover deps, staggered intro, drift, kit morph; static under reduced motion; list fallback without JS.
+- [x] Tech stack section with Simple Icons logos (monogram when none exists); facts move into the graph legend.
+
 ## Batch 5: Final integrated gate
 
 Goal: everything verified together; hand off push and deploy. Depends on: Batches 1–4.

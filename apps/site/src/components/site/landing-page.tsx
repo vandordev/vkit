@@ -2,9 +2,9 @@ import { Decisions } from "./decisions";
 import { DiskTree } from "./disk-tree";
 import { ForAgents } from "./for-agents";
 import { Hero } from "./hero";
-import { KitFacts } from "./kit-facts";
 import { SiteFooter } from "./site-footer";
 import { SiteNav } from "./site-nav";
+import { TechStack } from "./tech-stack";
 
 export function LandingPage() {
 	return (
@@ -12,7 +12,7 @@ export function LandingPage() {
 			<SiteNav />
 			<main>
 				<Hero />
-				<KitFacts />
+				<TechStack />
 				<DiskTree />
 				<Decisions />
 				<ForAgents />

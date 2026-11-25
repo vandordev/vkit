@@ -172,7 +172,281 @@
 			}
 		],
 		"tables": 21,
-		"commit": "99ed0c79b04b2bbe5e4d3423e0505d9f8666379c"
+		"commit": "99ed0c79b04b2bbe5e4d3423e0505d9f8666379c",
+		"graph": {
+			"nodes": [
+				{
+					"id": "apps/api",
+					"name": "api",
+					"kind": "app",
+					"lang": "go"
+				},
+				{
+					"id": "apps/bo",
+					"name": "bo",
+					"kind": "app",
+					"lang": "ts"
+				},
+				{
+					"id": "apps/bo-api",
+					"name": "bo-api",
+					"kind": "app",
+					"lang": "go"
+				},
+				{
+					"id": "apps/landing",
+					"name": "landing",
+					"kind": "app",
+					"lang": "ts"
+				},
+				{
+					"id": "apps/storybook",
+					"name": "storybook",
+					"kind": "app",
+					"lang": "ts"
+				},
+				{
+					"id": "apps/web",
+					"name": "web",
+					"kind": "app",
+					"lang": "ts"
+				},
+				{
+					"id": "apps/web-api",
+					"name": "web-api",
+					"kind": "app",
+					"lang": "go"
+				},
+				{
+					"id": "apps/worker",
+					"name": "worker",
+					"kind": "app",
+					"lang": "go"
+				},
+				{
+					"id": "packages/application",
+					"name": "application",
+					"kind": "package",
+					"lang": "go"
+				},
+				{
+					"id": "packages/brand",
+					"name": "brand",
+					"kind": "package",
+					"lang": "ts"
+				},
+				{
+					"id": "packages/config",
+					"name": "config",
+					"kind": "package",
+					"lang": "go+ts"
+				},
+				{
+					"id": "packages/db",
+					"name": "db",
+					"kind": "package",
+					"lang": "go"
+				},
+				{
+					"id": "packages/email",
+					"name": "email",
+					"kind": "package",
+					"lang": "go"
+				},
+				{
+					"id": "packages/eslint-config",
+					"name": "eslint-config",
+					"kind": "package",
+					"lang": "ts"
+				},
+				{
+					"id": "packages/fixtures",
+					"name": "fixtures",
+					"kind": "package",
+					"lang": "go"
+				},
+				{
+					"id": "packages/secrets",
+					"name": "secrets",
+					"kind": "package",
+					"lang": "go"
+				},
+				{
+					"id": "packages/storage",
+					"name": "storage",
+					"kind": "package",
+					"lang": "go"
+				},
+				{
+					"id": "packages/tools",
+					"name": "tools",
+					"kind": "package",
+					"lang": "go"
+				},
+				{
+					"id": "packages/typescript-config",
+					"name": "typescript-config",
+					"kind": "package",
+					"lang": "ts"
+				},
+				{
+					"id": "packages/ui",
+					"name": "ui",
+					"kind": "package",
+					"lang": "ts"
+				},
+				{
+					"id": "packages/ui-email",
+					"name": "ui-email",
+					"kind": "package",
+					"lang": "ts"
+				},
+				{
+					"id": "packages/ui-utils",
+					"name": "ui-utils",
+					"kind": "package",
+					"lang": "ts"
+				}
+			],
+			"edges": [
+				{
+					"from": "apps/api",
+					"to": "packages/config"
+				},
+				{
+					"from": "apps/api",
+					"to": "packages/fixtures"
+				},
+				{
+					"from": "apps/bo-api",
+					"to": "packages/application"
+				},
+				{
+					"from": "apps/bo-api",
+					"to": "packages/config"
+				},
+				{
+					"from": "apps/bo-api",
+					"to": "packages/db"
+				},
+				{
+					"from": "apps/bo-api",
+					"to": "packages/tools"
+				},
+				{
+					"from": "apps/bo",
+					"to": "packages/brand"
+				},
+				{
+					"from": "apps/bo",
+					"to": "packages/config"
+				},
+				{
+					"from": "apps/bo",
+					"to": "packages/ui"
+				},
+				{
+					"from": "apps/bo",
+					"to": "packages/ui-utils"
+				},
+				{
+					"from": "apps/landing",
+					"to": "packages/brand"
+				},
+				{
+					"from": "apps/landing",
+					"to": "packages/ui"
+				},
+				{
+					"from": "apps/storybook",
+					"to": "packages/brand"
+				},
+				{
+					"from": "apps/storybook",
+					"to": "packages/ui"
+				},
+				{
+					"from": "apps/web-api",
+					"to": "packages/application"
+				},
+				{
+					"from": "apps/web-api",
+					"to": "packages/config"
+				},
+				{
+					"from": "apps/web-api",
+					"to": "packages/db"
+				},
+				{
+					"from": "apps/web-api",
+					"to": "packages/email"
+				},
+				{
+					"from": "apps/web-api",
+					"to": "packages/fixtures"
+				},
+				{
+					"from": "apps/web-api",
+					"to": "packages/tools"
+				},
+				{
+					"from": "apps/web",
+					"to": "packages/brand"
+				},
+				{
+					"from": "apps/web",
+					"to": "packages/config"
+				},
+				{
+					"from": "apps/web",
+					"to": "packages/ui"
+				},
+				{
+					"from": "apps/web",
+					"to": "packages/ui-utils"
+				},
+				{
+					"from": "apps/worker",
+					"to": "packages/config"
+				},
+				{
+					"from": "apps/worker",
+					"to": "packages/db"
+				},
+				{
+					"from": "packages/application",
+					"to": "packages/db"
+				},
+				{
+					"from": "packages/tools",
+					"to": "packages/application"
+				},
+				{
+					"from": "packages/tools",
+					"to": "packages/config"
+				},
+				{
+					"from": "packages/tools",
+					"to": "packages/db"
+				},
+				{
+					"from": "packages/tools",
+					"to": "packages/email"
+				},
+				{
+					"from": "packages/ui-email",
+					"to": "packages/brand"
+				},
+				{
+					"from": "packages/ui",
+					"to": "packages/brand"
+				},
+				{
+					"from": "packages/ui",
+					"to": "packages/ui-utils"
+				}
+			]
+		}
 	},
 	"orbit": {
 		"apps": 7,
@@ -343,6 +617,248 @@
 			}
 		],
 		"tables": 14,
-		"commit": "2aaae27ea8d1eee86ae70fa01daf9ffd164e198b"
+		"commit": "2aaae27ea8d1eee86ae70fa01daf9ffd164e198b",
+		"graph": {
+			"nodes": [
+				{
+					"id": "apps/api",
+					"name": "api",
+					"kind": "app",
+					"lang": "ts"
+				},
+				{
+					"id": "apps/migrate",
+					"name": "migrate",
+					"kind": "app",
+					"lang": "ts"
+				},
+				{
+					"id": "apps/realtime",
+					"name": "realtime",
+					"kind": "app",
+					"lang": "ts"
+				},
+				{
+					"id": "apps/scheduler",
+					"name": "scheduler",
+					"kind": "app",
+					"lang": "ts"
+				},
+				{
+					"id": "apps/storybook",
+					"name": "storybook",
+					"kind": "app",
+					"lang": "ts"
+				},
+				{
+					"id": "apps/web",
+					"name": "web",
+					"kind": "app",
+					"lang": "ts"
+				},
+				{
+					"id": "apps/worker",
+					"name": "worker",
+					"kind": "app",
+					"lang": "ts"
+				},
+				{
+					"id": "packages/application",
+					"name": "application",
+					"kind": "package",
+					"lang": "ts"
+				},
+				{
+					"id": "packages/brand",
+					"name": "brand",
+					"kind": "package",
+					"lang": "ts"
+				},
+				{
+					"id": "packages/components",
+					"name": "components",
+					"kind": "package",
+					"lang": "ts"
+				},
+				{
+					"id": "packages/config",
+					"name": "config",
+					"kind": "package",
+					"lang": "ts"
+				},
+				{
+					"id": "packages/db",
+					"name": "db",
+					"kind": "package",
+					"lang": "ts"
+				},
+				{
+					"id": "packages/eslint-config",
+					"name": "eslint-config",
+					"kind": "package",
+					"lang": "ts"
+				},
+				{
+					"id": "packages/query",
+					"name": "query",
+					"kind": "package",
+					"lang": "ts"
+				},
+				{
+					"id": "packages/queue",
+					"name": "queue",
+					"kind": "package",
+					"lang": "ts"
+				},
+				{
+					"id": "packages/realtime",
+					"name": "realtime",
+					"kind": "package",
+					"lang": "ts"
+				},
+				{
+					"id": "packages/storage",
+					"name": "storage",
+					"kind": "package",
+					"lang": "ts"
+				},
+				{
+					"id": "packages/typescript-config",
+					"name": "typescript-config",
+					"kind": "package",
+					"lang": "ts"
+				}
+			],
+			"edges": [
+				{
+					"from": "apps/api",
+					"to": "packages/application"
+				},
+				{
+					"from": "apps/api",
+					"to": "packages/config"
+				},
+				{
+					"from": "apps/api",
+					"to": "packages/db"
+				},
+				{
+					"from": "apps/api",
+					"to": "packages/queue"
+				},
+				{
+					"from": "apps/api",
+					"to": "packages/realtime"
+				},
+				{
+					"from": "apps/api",
+					"to": "packages/storage"
+				},
+				{
+					"from": "apps/migrate",
+					"to": "packages/config"
+				},
+				{
+					"from": "apps/migrate",
+					"to": "packages/db"
+				},
+				{
+					"from": "apps/realtime",
+					"to": "packages/application"
+				},
+				{
+					"from": "apps/realtime",
+					"to": "packages/config"
+				},
+				{
+					"from": "apps/realtime",
+					"to": "packages/realtime"
+				},
+				{
+					"from": "apps/scheduler",
+					"to": "packages/config"
+				},
+				{
+					"from": "apps/scheduler",
+					"to": "packages/queue"
+				},
+				{
+					"from": "apps/storybook",
+					"to": "packages/brand"
+				},
+				{
+					"from": "apps/storybook",
+					"to": "packages/components"
+				},
+				{
+					"from": "apps/web",
+					"to": "packages/application"
+				},
+				{
+					"from": "apps/web",
+					"to": "packages/brand"
+				},
+				{
+					"from": "apps/web",
+					"to": "packages/components"
+				},
+				{
+					"from": "apps/web",
+					"to": "packages/config"
+				},
+				{
+					"from": "apps/web",
+					"to": "packages/query"
+				},
+				{
+					"from": "apps/web",
+					"to": "packages/realtime"
+				},
+				{
+					"from": "apps/worker",
+					"to": "packages/application"
+				},
+				{
+					"from": "apps/worker",
+					"to": "packages/config"
+				},
+				{
+					"from": "apps/worker",
+					"to": "packages/db"
+				},
+				{
+					"from": "apps/worker",
+					"to": "packages/queue"
+				},
+				{
+					"from": "packages/application",
+					"to": "packages/config"
+				},
+				{
+					"from": "packages/application",
+					"to": "packages/db"
+				},
+				{
+					"from": "packages/application",
+					"to": "packages/storage"
+				},
+				{
+					"from": "packages/db",
+					"to": "packages/config"
+				},
+				{
+					"from": "packages/query",
+					"to": "packages/application"
+				},
+				{
+					"from": "packages/query",
+					"to": "packages/db"
+				},
+				{
+					"from": "packages/queue",
+					"to": "packages/config"
+				}
+			]
+		}
 	}
 }

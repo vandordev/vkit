@@ -1,6 +1,6 @@
 // Regenerates src/kits.generated.json from the kits' public GitHub repositories (main branch).
 // Run: bun run gen:kits. GITHUB_TOKEN is optional and only raises the API rate limit.
-import { countDbmlTables, countPrismaModels, summarizeTree, type KitFacts } from "../src/lib/kit-facts";
+import { buildGraph, countDbmlTables, countPrismaModels, summarizeTree, type KitFacts, type KitGraph } from "../src/lib/kit-facts";
 
 const kits = {
 	zenith: { schema: { kind: "dbml", path: "packages/db/schema.dbml" } },
@@ -16,7 +16,7 @@ async function fetchOk(url: string): Promise<Response> {
 	return response;
 }
 
-const out: Record<string, KitFacts & { commit: string }> = {};
+const out: Record<string, KitFacts & { commit: string; graph: KitGraph }> = {};
 for (const [name, { schema }] of Object.entries(kits)) {
 	const repo = `vandordev/vkit-${name}`;
 	const tree = (await (await fetchOk(`https://api.github.com/repos/${repo}/git/trees/main?recursive=1`)).json()) as {
@@ -30,8 +30,10 @@ for (const [name, { schema }] of Object.entries(kits)) {
 	if (schemaFiles.length !== 1) throw new Error(`${repo}: schema file ${schema.path} not found`);
 	const texts = await Promise.all(schemaFiles.map(async (p) => (await fetchOk(`https://raw.githubusercontent.com/${repo}/${tree.sha}/${p}`)).text()));
 	const tables = texts.reduce((n, t) => n + (schema.kind === "dbml" ? countDbmlTables(t) : countPrismaModels(t)), 0);
-	out[name] = { ...summarizeTree(files), tables, commit: tree.sha };
+	const raw = async (p: string) => ({ path: p, text: await (await fetchOk(`https://raw.githubusercontent.com/${repo}/${tree.sha}/${p}`)).text() });
+	const manifests = await Promise.all(files.filter((p) => /^(apps|packages)\/[^/]+\/([^/]+\/)?(package\.json|go\.mod)$/.test(p)).map(raw));
+	out[name] = { ...summarizeTree(files), tables, commit: tree.sha, graph: buildGraph(manifests) };
 }
 
 await Bun.write(new URL("../src/kits.generated.json", import.meta.url), `${JSON.stringify(out, null, "\t")}\n`);
-console.log(Object.entries(out).map(([k, v]) => `${k}: ${v.apps} apps, ${v.packages} packages, ${v.adrs} ADRs, ${v.tables} tables @ ${v.commit.slice(0, 7)}`).join("\n"));
+console.log(Object.entries(out).map(([k, v]) => `${k}: ${v.apps} apps, ${v.packages} packages, ${v.adrs} ADRs, ${v.tables} tables, ${v.graph.nodes.length} nodes / ${v.graph.edges.length} edges @ ${v.commit.slice(0, 7)}`).join("\n"));

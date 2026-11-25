@@ -1,13 +1,13 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { KitFacts } from "./kit-facts";
+import { ArchGraph } from "./arch-graph";
 import { withSiteFrame } from "./story-frame";
 
 const meta = {
-	title: "Site/Facts",
-	component: KitFacts,
+	title: "Site/Architecture graph",
+	component: ArchGraph,
 	decorators: [withSiteFrame],
 	parameters: { layout: "fullscreen" },
-} satisfies Meta<typeof KitFacts>;
+} satisfies Meta<typeof ArchGraph>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
