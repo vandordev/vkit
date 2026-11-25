@@ -3,6 +3,21 @@
 		"apps": 8,
 		"packages": 14,
 		"adrs": 13,
+		"adrFiles": [
+			"0001-phased-delivery.md",
+			"0002-tenancy.md",
+			"0003-infrastructure.md",
+			"0004-backend-layering.md",
+			"0005-backoffice-operations-center.md",
+			"0006-api-per-consumer.md",
+			"0007-public-api-conventions.md",
+			"0008-landing-nextjs.md",
+			"0009-landing-seo.md",
+			"0010-landing-animation-library.md",
+			"0011-landing-scroll-reveal.md",
+			"0012-landing-light-only.md",
+			"0013-risk-based-verification.md"
+		],
 		"tree": [
 			{
 				"name": ".agent",
@@ -452,6 +467,7 @@
 		"apps": 7,
 		"packages": 11,
 		"adrs": 0,
+		"adrFiles": [],
 		"tree": [
 			{
 				"name": ".agent",

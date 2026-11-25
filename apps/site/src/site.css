@@ -146,27 +146,102 @@
 	color: var(--foreground);
 }
 
-/* Hero: copy and command on the left, the kit's live architecture on the right. */
-.vk-hero {
-	border-bottom: 1px solid var(--vk-line);
-	overflow: clip;
-}
-.vk-hero__grid {
+/* Story: chapters scroll on the left while one architecture stage stays pinned on the right. */
+.vk-story {
 	display: grid;
 	grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
-	gap: clamp(24px, 4vw, 56px);
-	align-items: stretch;
+	column-gap: clamp(24px, 4vw, 56px);
+	align-items: start;
 }
-.vk-hero__copy {
-	padding-block: clamp(56px, 8vw, 104px);
-	align-self: center;
+.vk-story__flow {
+	min-width: 0;
 }
-.vk-hero h1 {
+.vk-story__stage {
+	position: sticky;
+	top: 61px;
+	height: calc(100svh - 61px);
+	/* Bleed to the viewport's right edge from inside the centered wrap. */
+	margin-right: calc((min(100vw, var(--vk-measure)) - 100vw) / 2 - clamp(16px, 4vw, 32px));
+	border-left: 1px solid var(--vk-line);
+	background:
+		radial-gradient(circle at 1px 1px, color-mix(in oklab, var(--foreground) 9%, transparent) 1px, transparent 0) 0 0 / 22px 22px,
+		var(--background);
+}
+.vk-chapter {
+	padding-block: clamp(48px, 8vh, 96px);
+	border-top: 1px solid var(--vk-line);
+}
+.vk-chapter--hero {
+	min-height: calc(100svh - 61px);
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	border-top: 0;
+}
+.vk-chapter h1 {
 	font-size: var(--vk-text-display);
 	line-height: 1.02;
 	letter-spacing: -0.035em;
 	font-weight: 600;
 	text-wrap: balance;
+}
+.vk-chapter h2 {
+	font-size: var(--vk-text-2xl);
+	font-weight: 600;
+	letter-spacing: -0.03em;
+	line-height: 1.1;
+}
+.vk-chapter__head {
+	display: grid;
+	gap: 10px;
+}
+/* Each chapter owns an accent: its number, its scrubber segment and the graph's highlight. */
+.vk-chapter[data-accent="stack"] {
+	--vk-accent: var(--viz-1);
+}
+.vk-chapter[data-accent="disk"] {
+	--vk-accent: var(--viz-3);
+}
+.vk-chapter[data-accent="decisions"] {
+	--vk-accent: var(--viz-4);
+}
+.vk-chapter[data-accent="agents"] {
+	--vk-accent: var(--viz-5);
+}
+.vk-chapter__n {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	font-family: var(--font-mono);
+	font-size: var(--vk-text-sm);
+	color: var(--vk-mute);
+}
+.vk-chapter__n::before {
+	content: "";
+	width: 10px;
+	height: 11px;
+	clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
+	background: var(--vk-accent);
+}
+.vk-steps {
+	display: grid;
+}
+.vk-step {
+	transition: opacity var(--motion-slow) var(--ease-out);
+}
+.vk-steps > .vk-step,
+.vk-steps > * > .vk-step {
+	min-height: 42vh;
+	padding-block: 28px;
+	display: grid;
+	align-content: center;
+}
+/* The step on the reading line is fully opaque; its neighbours recede. */
+:root[data-chapter] .vk-steps .vk-step {
+	opacity: 0.38;
+}
+:root[data-chapter] .vk-steps .vk-step[data-active] {
+	opacity: 1;
 }
 .vk-lead {
 	margin-top: 22px;
@@ -274,17 +349,11 @@
 }
 
 /* Architecture stage */
-.vk-hero__stage {
+.vk-stage {
 	position: relative;
 	display: flex;
 	flex-direction: column;
-	min-height: clamp(480px, calc(100svh - 61px), 760px);
-	/* Bleed to the viewport's right edge from inside the centered wrap. */
-	margin-right: calc((min(100vw, var(--vk-measure)) - 100vw) / 2 - clamp(16px, 4vw, 32px));
-	border-left: 1px solid var(--vk-line);
-	background:
-		radial-gradient(circle at 1px 1px, color-mix(in oklab, var(--foreground) 9%, transparent) 1px, transparent 0) 0 0 / 22px 22px,
-		var(--background);
+	height: 100%;
 }
 .vk-graph {
 	position: relative;
@@ -395,32 +464,24 @@
 	border-radius: 2px;
 }
 
-/* Tech stack */
-.vk-stack {
-	margin-top: 40px;
-	display: grid;
-	grid-template-columns: repeat(4, minmax(0, 1fr));
-	border-top: 1px solid var(--vk-line);
-}
-.vk-stack__layer {
-	padding: 20px 20px 8px 0;
-}
-.vk-stack__layer + .vk-stack__layer {
-	padding-left: 20px;
-	border-left: 1px solid var(--vk-line);
-}
-.vk-stack h3 {
-	font-size: var(--vk-text-sm);
+/* Stack layers */
+.vk-layer h3 {
+	font-size: var(--vk-text-lg);
 	font-weight: 600;
-	color: var(--vk-mute);
+	letter-spacing: -0.02em;
 	margin-bottom: 14px;
 }
-.vk-stack li {
+.vk-layer ul {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 4px 20px;
+}
+.vk-layer li {
 	display: grid;
 	grid-template-columns: 28px minmax(0, 1fr);
 	column-gap: 12px;
 	align-items: center;
-	padding: 10px 0;
+	padding: 8px 0;
 }
 .vk-logo {
 	grid-row: span 2;
@@ -429,7 +490,7 @@
 	fill: var(--foreground);
 	transition: fill var(--motion-base) var(--ease-out), transform var(--motion-base) var(--ease-out);
 }
-.vk-stack li:hover .vk-logo:not(.vk-logo--mono) {
+.vk-layer li:hover .vk-logo:not(.vk-logo--mono) {
 	fill: var(--brand);
 	transform: translateY(-1px);
 }
@@ -444,14 +505,74 @@
 	font-weight: 700;
 	fill: var(--foreground);
 }
-.vk-stack__name {
+.vk-layer__name {
 	font-weight: 600;
 	line-height: 1.25;
 }
-.vk-stack__role {
+.vk-layer__role {
 	font-size: var(--vk-text-sm);
 	color: var(--vk-mute);
 	line-height: 1.3;
+}
+
+/* Stage card: the chapter's real command, typed into a small terminal over the graph. */
+.vk-card {
+	position: absolute;
+	right: 20px;
+	bottom: 108px;
+	z-index: 1;
+	width: min(360px, calc(100% - 40px));
+	padding: 12px 14px;
+	border-radius: 10px;
+	background: var(--vk-term-bg);
+	color: var(--vk-term-ink);
+	font-family: var(--font-mono);
+	font-size: 0.75rem;
+	line-height: 1.6;
+	font-variant-ligatures: none;
+	box-shadow: 0 14px 30px -18px rgb(0 0 0 / 0.5);
+	animation: vk-type 380ms steps(22, end);
+}
+.vk-card__prompt {
+	color: var(--vk-term-mute);
+}
+.vk-card__out {
+	color: var(--vk-term-mute);
+	white-space: pre-wrap;
+	animation: vk-line var(--motion-slow) var(--ease-out) both;
+}
+@keyframes vk-line {
+	from {
+		opacity: 0;
+		transform: translateY(3px);
+	}
+}
+
+/* Scrubber: where you are in the story, one segment per chapter in its accent. */
+.vk-scrub {
+	display: flex;
+	align-items: center;
+	gap: 14px;
+	padding: 10px 20px;
+	border-top: 1px solid var(--vk-line);
+	font-family: var(--font-mono);
+	font-size: 0.75rem;
+	color: var(--vk-mute);
+}
+.vk-scrub__track {
+	flex: 1;
+	display: grid;
+	grid-template-columns: repeat(5, minmax(0, 1fr));
+	gap: 4px;
+}
+.vk-scrub__seg {
+	height: 4px;
+	border-radius: 2px;
+	background: var(--vk-line);
+	transition: background var(--motion-slow) var(--ease-out);
+}
+.vk-scrub__seg[data-on] {
+	background: var(--seg, var(--foreground));
 }
 
 /* Sections */
@@ -484,7 +605,7 @@
 }
 .vk-tree__row {
 	display: grid;
-	grid-template-columns: minmax(10rem, 14rem) minmax(0, 1fr);
+	grid-template-columns: minmax(0, 1fr);
 	gap: 4px 24px;
 	padding: 9px 0 9px 18px;
 	border-top: 1px solid var(--vk-line);
@@ -515,41 +636,40 @@
 }
 
 /* Decisions */
-.vk-decisions {
-	margin-top: 36px;
-	display: grid;
-	grid-template-columns: repeat(2, minmax(0, 1fr));
-	column-gap: 48px;
+.vk-decision {
+	gap: 8px;
 }
-.vk-decisions li {
-	display: grid;
-	gap: 6px;
-	align-content: start;
-	padding: 22px 0 26px;
-	border-top: 1px solid var(--vk-line);
-}
-.vk-decisions h3 {
-	font-size: var(--vk-text-lg);
+.vk-decision h3 {
+	font-size: var(--vk-text-xl);
 	font-weight: 600;
 	letter-spacing: -0.02em;
 }
-.vk-decisions p {
+.vk-decision p {
 	color: var(--vk-mute);
 	max-width: 52ch;
 }
-.vk-decisions a {
+.vk-decision .vk-decision__nodes {
+	font-family: var(--font-mono);
+	font-size: 0.8125rem;
+	color: var(--foreground);
+}
+.vk-decision__nodes::before {
+	content: "";
+	display: inline-block;
+	width: 9px;
+	height: 10px;
+	margin-right: 8px;
+	clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
+	background: var(--vk-accent);
+}
+.vk-decision a {
 	justify-self: start;
 	font-size: var(--vk-text-sm);
 }
 
 /* Agents */
-.vk-agents {
-	display: grid;
-	grid-template-columns: minmax(0, 4fr) minmax(0, 6fr);
-	gap: clamp(32px, 5vw, 64px);
-	align-items: start;
-}
 .vk-prompt {
+	margin-top: 28px;
 	border: 1px solid var(--vk-line);
 	border-radius: 14px;
 	background: var(--card);
@@ -648,31 +768,30 @@
 }
 
 @media (max-width: 900px) {
-	.vk-hero__grid,
-	.vk-agents {
+	/* Phones and tablets: the stage pins as a band under the nav and the chapters scroll beneath it. */
+	.vk-story {
 		grid-template-columns: minmax(0, 1fr);
 	}
-	.vk-hero__copy {
-		padding-bottom: 32px;
-	}
-	.vk-hero__stage {
+	.vk-story__stage {
+		grid-row: 1;
+		top: 61px;
+		z-index: 5;
+		height: 44svh;
 		margin-inline: calc(-1 * clamp(16px, 4vw, 32px));
 		border-left: 0;
-		border-top: 1px solid var(--vk-line);
-		min-height: 440px;
+		border-bottom: 1px solid var(--vk-line);
 	}
-	.vk-stack {
-		grid-template-columns: repeat(2, minmax(0, 1fr));
+	.vk-chapter--hero {
+		min-height: 0;
+		padding-top: 40px;
 	}
-	.vk-stack__layer:nth-child(3) {
-		padding-left: 0;
-		border-left: 0;
+	.vk-legend,
+	.vk-card {
+		display: none;
 	}
-	.vk-stack__layer:nth-child(n + 3) {
-		border-top: 1px solid var(--vk-line);
-	}
-	.vk-decisions {
-		grid-template-columns: minmax(0, 1fr);
+	.vk-steps > .vk-step,
+	.vk-steps > * > .vk-step {
+		min-height: 34vh;
 	}
 }
 @media (max-width: 560px) {
@@ -688,19 +807,11 @@
 	.vk-cmd__line [data-slot="button"] {
 		width: 100%;
 	}
-	.vk-stack {
+	.vk-layer ul {
 		grid-template-columns: minmax(0, 1fr);
-	}
-	.vk-stack__layer + .vk-stack__layer {
-		padding-left: 0;
-		border-left: 0;
-		border-top: 1px solid var(--vk-line);
 	}
 	.vk-tree__row {
 		grid-template-columns: minmax(0, 1fr);
-	}
-	.vk-tree__children {
-		grid-column: 1;
 	}
 	.vk-footer__legal {
 		margin-left: 0;
@@ -708,7 +819,9 @@
 }
 @media (prefers-reduced-motion: reduce) {
 	.vk-cmd__line,
-	.vk-graph__tip {
+	.vk-graph__tip,
+	.vk-card,
+	.vk-card__out {
 		animation: none;
 	}
 }

@@ -33,11 +33,12 @@ const runners: Record<PackageManager, string> = { bun: "bunx", npm: "npx", pnpm:
 
 export const startCommand = (kit: KitName, pm: PackageManager) => `${runners[pm]} giget gh:vandordev/vkit-${kit} my-app`;
 
-export type Decision = { title: string; text: string; source: string };
+/** `nodes` are the graph ids (apps/x, packages/y) the decision governs; the pinned graph lights them up. */
+export type Decision = { title: string; text: string; source: string; nodes: readonly string[] };
 
 /** A technology with its Simple Icons logo; tools without one in Simple Icons render as a monogram, never a guessed logo. */
 export type Tech = { name: string; role: string; icon?: SimpleIcon };
-export type StackLayer = { layer: "Backend" | "Frontend" | "Data and jobs" | "Tooling"; items: readonly Tech[] };
+export type StackLayer = { layer: "Backend" | "Frontend" | "Data and jobs" | "Tooling"; items: readonly Tech[]; nodes: readonly string[] };
 
 export type Kit = {
 	name: KitName;
@@ -83,36 +84,43 @@ export const kits: readonly Kit[] = [
 				title: "Schema, then UI, then functionality",
 				text: "Every capability ships in three phases: migration and schema first, then screens on dummy endpoints, then the real behavior.",
 				source: blob("zenith", "docs/adr/0001-phased-delivery.md"),
+				nodes: ["packages/db", "packages/application", "apps/web-api", "apps/web"],
 			},
 			{
 				title: "Tenancy enforced by the database",
 				text: "Every tenant-owned row carries a NOT NULL organization_id with a foreign key; composite keys keep children in their parent's organization.",
 				source: blob("zenith", "docs/adr/0002-tenancy.md"),
+				nodes: ["packages/db", "packages/application"],
 			},
 			{
 				title: "Every write goes through a usecase",
 				text: "Usecases own validation, authorization, locks, the transaction and the audit event, whoever the caller is.",
 				source: blob("zenith", "docs/adr/0004-backend-layering.md"),
+				nodes: ["packages/application", "apps/web-api", "apps/bo-api", "packages/tools"],
 			},
 			{
 				title: "One API per consumer",
 				text: "The web app, the backoffice and customers' servers each get their own API, with their own auth model.",
 				source: blob("zenith", "docs/adr/0006-api-per-consumer.md"),
+				nodes: ["apps/api", "apps/web-api", "apps/bo-api", "apps/web", "apps/bo"],
 			},
 			{
 				title: "Jobs in Postgres, not Redis",
 				text: "Background work runs on River inside PostgreSQL; there is no extra queue to operate.",
 				source: blob("zenith", "docs/adr/0003-infrastructure.md"),
+				nodes: ["apps/worker", "packages/db"],
 			},
 			{
 				title: "Verify by risk",
 				text: "Run the cheapest check that can actually fail for the change: compile, typecheck, focused tests, Storybook for UI.",
 				source: blob("zenith", "docs/adr/0013-risk-based-verification.md"),
+				nodes: ["apps/storybook", "packages/ui", "packages/tools"],
 			},
 		],
 		stack: [
 			{
 				layer: "Backend",
+				nodes: ["apps/api", "apps/web-api", "apps/bo-api", "apps/worker"],
 				items: [
 					{ name: "Go", role: "Three APIs and the worker", icon: siGo },
 					{ name: "Echo", role: "HTTP server" },
@@ -122,6 +130,7 @@ export const kits: readonly Kit[] = [
 			},
 			{
 				layer: "Frontend",
+				nodes: ["apps/web", "apps/bo", "apps/landing", "packages/ui", "packages/brand", "packages/ui-utils"],
 				items: [
 					{ name: "TypeScript", role: "Web, backoffice and landing", icon: siTypescript },
 					{ name: "React", role: "UI", icon: siReact },
@@ -131,6 +140,7 @@ export const kits: readonly Kit[] = [
 			},
 			{
 				layer: "Data and jobs",
+				nodes: ["packages/db", "packages/application", "apps/worker", "packages/email"],
 				items: [
 					{ name: "PostgreSQL", role: "One database, tenancy in the schema", icon: siPostgresql },
 					{ name: "pgx", role: "Explicit pools and transactions" },
@@ -141,6 +151,7 @@ export const kits: readonly Kit[] = [
 			},
 			{
 				layer: "Tooling",
+				nodes: ["apps/storybook", "packages/tools", "packages/config"],
 				items: [
 					{ name: "Bun", role: "Package manager and scripts", icon: siBun },
 					{ name: "Turborepo", role: "Monorepo tasks", icon: siTurborepo },
@@ -187,26 +198,31 @@ export const kits: readonly Kit[] = [
 				title: "Versioned job contracts",
 				text: "BullMQ job names and payloads are cross-runtime contracts; breaking changes get a new versioned kind.",
 				source: blob("orbit", "AGENTS.md"),
+				nodes: ["packages/queue", "apps/worker", "apps/scheduler", "apps/api"],
 			},
 			{
 				title: "One process talks to Socket.IO",
 				text: "Workers notify Elysia only after a job succeeds; Elysia alone publishes realtime events.",
 				source: blob("orbit", "AGENTS.md"),
+				nodes: ["apps/worker", "apps/api", "apps/realtime"],
 			},
 			{
 				title: "Realtime is a signal, not data",
 				text: "Realtime payloads invalidate queries; the database stays the source of truth.",
 				source: blob("orbit", "AGENTS.md"),
+				nodes: ["packages/realtime", "packages/query", "apps/web"],
 			},
 			{
 				title: "Typed config, no env in features",
 				text: "Runtime config comes from config.yaml through typed getters; browser code never sees server values.",
 				source: blob("orbit", "AGENTS.md"),
+				nodes: ["packages/config"],
 			},
 		],
 		stack: [
 			{
 				layer: "Backend",
+				nodes: ["apps/api", "apps/realtime", "packages/application"],
 				items: [
 					{ name: "TypeScript", role: "Every runtime", icon: siTypescript },
 					{ name: "Elysia", role: "Public API and realtime publisher" },
@@ -216,6 +232,7 @@ export const kits: readonly Kit[] = [
 			},
 			{
 				layer: "Frontend",
+				nodes: ["apps/web", "packages/components", "packages/query", "packages/brand"],
 				items: [
 					{ name: "React", role: "UI", icon: siReact },
 					{ name: "TanStack Start", role: "Web app" },
@@ -224,6 +241,7 @@ export const kits: readonly Kit[] = [
 			},
 			{
 				layer: "Data and jobs",
+				nodes: ["packages/db", "packages/queue", "packages/storage", "apps/worker", "apps/scheduler", "apps/migrate", "packages/realtime"],
 				items: [
 					{ name: "PostgreSQL", role: "Database", icon: siPostgresql },
 					{ name: "Prisma", role: "Schema and client", icon: siPrisma },
@@ -235,6 +253,7 @@ export const kits: readonly Kit[] = [
 			},
 			{
 				layer: "Tooling",
+				nodes: ["apps/storybook", "packages/config"],
 				items: [
 					{ name: "Bun", role: "Runtime and package manager", icon: siBun },
 					{ name: "Turborepo", role: "Monorepo tasks", icon: siTurborepo },

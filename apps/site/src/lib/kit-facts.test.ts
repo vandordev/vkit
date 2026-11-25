@@ -16,6 +16,7 @@ test("summarizeTree counts apps, packages and numbered ADRs, dirs first", () => 
 	expect(facts.apps).toBe(2);
 	expect(facts.packages).toBe(1);
 	expect(facts.adrs).toBe(2);
+	expect(facts.adrFiles).toEqual(["0001-phased.md", "0002-tenancy.md"]);
 	expect(facts.tree.map((e) => e.name)).toEqual(["apps", "docs", "packages", "AGENTS.md", "README.md"]);
 	expect(facts.tree[0]).toEqual({ name: "apps", dir: true, children: ["api", "web"] });
 	expect(facts.tree[1]).toEqual({ name: "docs", dir: true });

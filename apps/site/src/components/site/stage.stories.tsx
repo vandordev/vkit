@@ -1,13 +1,13 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { TechStack } from "./tech-stack";
+import { Stage } from "./stage";
 import { withSiteFrame } from "./story-frame";
 
 const meta = {
-	title: "Site/Tech stack",
-	component: TechStack,
-	decorators: [withSiteFrame],
+	title: "Site/Stage",
+	component: Stage,
+	decorators: [withSiteFrame, (S) => <div style={{ height: 640 }}>{S()}</div>],
 	parameters: { layout: "fullscreen" },
-} satisfies Meta<typeof TechStack>;
+} satisfies Meta<typeof Stage>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;

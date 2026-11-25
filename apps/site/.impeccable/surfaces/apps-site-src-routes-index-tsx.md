@@ -17,4 +17,4 @@ OWN-WORLD: Vandor neutral tokens in both themes, hairline rules, Plus Jakarta Sa
 STORY: Visitor sees one command, picks kit and package manager, sees the real tree and facts, reads the decisions, copies a prompt for their agent; roadmap lives on its own page.
 FIRST VIEWPORT: Headline, lead and the dark command box (kit and bun/npm/pnpm tabs) on the left; on the right, bleeding to the viewport edge, the kit's live architecture graph on a dot grid with a legend of real facts.
 FORM: Developer-tool landing after research of 18 references (Turborepo, Bun, T3, Hono, Better-T-Stack). seed: none (direction chosen with the user, no concept roll).
-SIGNATURE: The live architecture graph: the kit's real app→package dependencies as Vandor hexagons under physics (Go left, TypeScript right), pushed by the pointer, draggable, hover reveals dependencies, and it morphs when the kit changes.
+SIGNATURE: One pinned architecture graph re-tells itself per chapter as the left column scrolls: layer focus (stack), fold into a folder tree (disk), ADR-governed nodes lit in the chapter accent (decisions), a reading head walking the map (agents); command card and accent scrubber follow.

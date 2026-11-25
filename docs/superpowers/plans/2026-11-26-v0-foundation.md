@@ -233,6 +233,10 @@ theme switch persists, Storybook builds.
 - [x] Hero `ArchGraph`: d3-force canvas of hexagons, Go/TS lanes, pointer push, drag, hover deps, staggered intro, drift, kit morph; static under reduced motion; list fallback without JS.
 - [x] Tech stack section with Simple Icons logos (monogram when none exists); facts move into the graph legend.
 
+## Batch 4e: Pinned architecture story (anime.js-style chapters, user-picked)
+
+- [x] One sticky stage (graph, chapter command card, scrubber, legend); chapters Stack → On disk (graph folds into a two-column folder tree) → Decisions (each ADR/rule lights its nodes, tested ids) → Agents (reading head walks the map). Mobile pins the stage as a band.
+
 ## Batch 5: Final integrated gate
 
 Goal: everything verified together; hand off push and deploy. Depends on: Batches 1–4.

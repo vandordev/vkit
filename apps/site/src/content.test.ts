@@ -24,3 +24,11 @@ test("every annotated path exists in the generated tree, so notes cannot go stal
 test("agent prompts start from the kit's own repository", () => {
 	for (const kit of kits) expect(kit.agentPrompt).toContain(`giget gh:vandordev/vkit-${kit.name}`);
 });
+
+test("every node a decision or stack layer points at exists in that kit's graph", () => {
+	for (const kit of kits) {
+		const ids = new Set(kit.facts.graph.nodes.map((n) => n.id));
+		const refs = [...kit.decisions.flatMap((d) => d.nodes), ...kit.stack.flatMap((l) => l.nodes)];
+		for (const id of refs) expect(ids.has(id) ? id : `${kit.name}: missing ${id}`).toBe(id);
+	}
+});

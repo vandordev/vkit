@@ -1,13 +1,13 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { ForAgents } from "./for-agents";
+import { Story } from "./story";
 import { withSiteFrame } from "./story-frame";
 
 const meta = {
-	title: "Site/For agents",
-	component: ForAgents,
+	title: "Site/Story (hero and chapters)",
+	component: Story,
 	decorators: [withSiteFrame],
 	parameters: { layout: "fullscreen" },
-} satisfies Meta<typeof ForAgents>;
+} satisfies Meta<typeof Story>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
