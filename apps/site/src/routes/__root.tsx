@@ -19,7 +19,7 @@ export const Route = createRootRoute({
 			{ property: "og:type", content: "website" },
 			{ property: "og:url", content: `${siteUrl}/` },
 		],
-		scripts: [{ children: themeInitScript }],
+		scripts: [{ children: `document.documentElement.classList.add("js");${themeInitScript}` }],
 		links: [
 			{ rel: "stylesheet", href: appCss },
 			{ rel: "icon", href: "/favicon.svg" },

@@ -52,7 +52,10 @@ export type Kit = {
 	tablesLabel: string;
 	/** One line per top-level path a visitor would ask about; unlisted paths show without a note. */
 	notes: Record<string, string>;
-	decisionsTitle: string;
+	/** One factual sentence under the Stack heading. */
+	stackLead: string;
+	/** One factual sentence under the Decisions heading. */
+	decisionsLead: string;
 	decisions: readonly Decision[];
 	agentPrompt: string;
 	stack: readonly StackLayer[];
@@ -81,7 +84,8 @@ export const kits: readonly Kit[] = [
 			"PRODUCT.md": "What the product is; replace it with yours.",
 			"Taskfile.yml": "Install, generate, check and run, one task each.",
 		},
-		decisionsTitle: "Decisions, written down as ADRs",
+		stackLead: "Go on the server, TypeScript in the browser, PostgreSQL underneath. Everything below is configured and in use.",
+		decisionsLead: `${generated.zenith.adrs} architecture decision records ship with zenith. These six shape most of the code.`,
 		decisions: [
 			{
 				title: "Schema, then UI, then functionality",
@@ -196,7 +200,8 @@ export const kits: readonly Kit[] = [
 			"PRODUCT.md": "What the reference product does; replace it with yours.",
 			"Taskfile.yml": "Install, migrate, run and check, one task each.",
 		},
-		decisionsTitle: "Rules from its AGENTS.md",
+		stackLead: "TypeScript end to end, Redis for jobs, PostgreSQL underneath. Everything below is configured and in use.",
+		decisionsLead: "orbit keeps its architecture rules in AGENTS.md. These four shape most of the code.",
 		decisions: [
 			{
 				title: "Versioned job contracts",
@@ -282,8 +287,8 @@ export const kits: readonly Kit[] = [
 ];
 
 export const hero = {
-	title: "Start from a codebase that already ships.",
-	lead: "vkit collects Vandor's kits: real, running codebases you copy in one command and make your own. Pick one, read the decisions behind it, and hand it to your coding agent.",
+	title: "Start from a codebase, not a blank folder.",
+	lead: "Vandor's kits are complete codebases with their decisions written down. Copy one, read why it is built that way, and hand it to your coding agent.",
 } as const;
 
 export const repoUrl = "https://github.com/vandordev/vkit";

@@ -1,7 +1,12 @@
 /* vkit site: "repository as the interface". Neutral Vandor tokens in light and dark; the terminal is the one
    fixed dark surface in both themes, and the only strong color is the terminal's own syntax. */
+html,
+body {
+	overflow-x: clip;
+}
 .vk {
-	--vk-measure: 1160px;
+	/* Full width everywhere: one gutter shared by nav, story, roadmap and footer. */
+	--vk-gutter: clamp(16px, 4vw, 56px);
 	--vk-line: var(--border);
 	--vk-mute: var(--muted-foreground);
 	--vk-term-bg: #111214;
@@ -20,6 +25,7 @@
 	min-height: 100vh;
 	display: flex;
 	flex-direction: column;
+	overflow-x: clip;
 	background: var(--background);
 	color: var(--foreground);
 	font-family: var(--font-sans);
@@ -58,9 +64,7 @@
 	border-radius: 4px;
 }
 .vk-wrap {
-	max-width: var(--vk-measure);
-	margin-inline: auto;
-	padding-inline: clamp(16px, 4vw, 32px);
+	padding-inline: var(--vk-gutter);
 }
 .vk-sr {
 	position: absolute;
@@ -158,6 +162,7 @@
 
 /* Story: chapters scroll on the left while one architecture stage stays pinned on the right. */
 .vk-story {
+	padding-right: 0;
 	display: grid;
 	grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
 	column-gap: clamp(24px, 4vw, 56px);
@@ -165,13 +170,12 @@
 }
 .vk-story__flow {
 	min-width: 0;
+	max-width: 720px;
 }
 .vk-story__stage {
 	position: sticky;
 	top: 61px;
 	height: calc(100svh - 61px);
-	/* Bleed to the viewport's right edge from inside the centered wrap. */
-	margin-right: calc((min(100vw, var(--vk-measure)) - 100vw) / 2 - clamp(16px, 4vw, 32px));
 	border-left: 1px solid var(--vk-line);
 	background:
 		radial-gradient(circle at 1px 1px, color-mix(in oklab, var(--foreground) 9%, transparent) 1px, transparent 0) 0 0 / 22px 22px,
@@ -217,21 +221,6 @@
 }
 .vk-chapter[data-accent="agents"] {
 	--vk-accent: var(--viz-5);
-}
-.vk-chapter__n {
-	display: inline-flex;
-	align-items: center;
-	gap: 8px;
-	font-family: var(--font-mono);
-	font-size: var(--vk-text-sm);
-	color: var(--vk-mute);
-}
-.vk-chapter__n::before {
-	content: "";
-	width: 10px;
-	height: 11px;
-	clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
-	background: var(--vk-accent);
 }
 .vk-steps {
 	display: grid;
@@ -284,55 +273,101 @@
 :root.dark .vk-cmd {
 	box-shadow: 0 0 0 1px var(--vk-term-line) inset;
 }
-.vk-cmd__bar {
+/* Package manager: a quiet segmented row inside the terminal. */
+.vk-cmd__pm {
 	display: flex;
-	justify-content: space-between;
-	gap: 8px;
-	padding: 0 8px;
-	border-bottom: 1px solid var(--vk-term-line);
-}
-.vk-tabs {
-	display: flex;
+	gap: 2px;
+	margin: 0;
+	padding: 10px 12px 0;
 	border: 0;
-	min-width: 0;
 }
-.vk-tabs label {
+.vk-cmd__pm label {
 	position: relative;
 	cursor: pointer;
 }
-.vk-tabs input {
+.vk-cmd__pm input,
+.vk-switch__kits input {
 	position: absolute;
 	opacity: 0;
 	pointer-events: none;
 }
-.vk-tabs span {
+.vk-cmd__pm span {
 	display: block;
-	padding: 10px 10px 9px;
+	padding: 3px 9px;
+	border-radius: 6px;
+	font-size: 0.75rem;
 	color: var(--vk-term-mute);
-	border-bottom: 1px solid transparent;
-	transition: color var(--motion-fast) var(--ease-out);
+	transition:
+		color var(--motion-fast) var(--ease-out),
+		background-color var(--motion-fast) var(--ease-out);
 }
-.vk-tabs label:hover span {
+.vk-cmd__pm label:hover span {
 	color: var(--vk-term-ink);
 }
-.vk-tabs input:checked + span {
+.vk-cmd__pm input:checked + span {
 	color: var(--vk-term-ink);
-	border-bottom-color: var(--vk-term-ink);
+	background: rgb(255 255 255 / 0.08);
 }
-.vk-tabs--quiet span {
-	padding-inline: 7px;
+.vk-cmd__pm input:focus-visible + span,
+.vk-switch__kits input:focus-visible + span {
+	outline: 2px solid var(--ring);
+	outline-offset: 2px;
 }
-.vk-tabs input:focus-visible + span {
-	outline: 2px solid var(--vk-term-dir);
-	outline-offset: -4px;
-	border-radius: 4px;
+
+/* Kit switch: pinned with the stage, so the kit can change at any point of the story. */
+.vk-switch {
+	display: flex;
+	align-items: center;
+	gap: 16px;
+	padding: 12px 20px;
+	border-bottom: 1px solid var(--vk-line);
+	background: color-mix(in oklab, var(--background) 90%, transparent);
+}
+.vk-switch__kits {
+	position: relative;
+	display: inline-flex;
+	margin: 0;
+	padding: 3px;
+	border: 1px solid var(--vk-line);
+	border-radius: 10px;
+	background: var(--card);
+}
+.vk-switch__kits label {
+	position: relative;
+	cursor: pointer;
+}
+.vk-switch__kits span {
+	display: block;
+	padding: 5px 14px;
+	border-radius: 7px;
+	font-family: var(--font-mono);
+	font-size: 0.8125rem;
+	color: var(--vk-mute);
+	transition:
+		color var(--motion-base) var(--ease-out),
+		background-color var(--motion-base) var(--ease-out),
+		box-shadow var(--motion-base) var(--ease-out);
+}
+.vk-switch__kits label:hover span {
+	color: var(--foreground);
+}
+.vk-switch__kits input:checked + span {
+	color: var(--primary-foreground);
+	background: var(--primary);
+	box-shadow: 0 1px 2px rgb(0 0 0 / 0.18);
+}
+.vk-switch__meta {
+	font-size: var(--vk-text-sm);
+	color: var(--vk-mute);
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 .vk-cmd__line {
 	display: flex;
 	align-items: center;
 	gap: 12px;
 	padding: 14px 10px 14px 16px;
-	animation: vk-type 420ms steps(24, end);
 }
 .vk-cmd__line code {
 	flex: 1;
@@ -390,6 +425,7 @@
 	color: var(--foreground);
 	font-weight: 500;
 }
+.js .vk-graph__list,
 .vk-graph__list[data-ready] {
 	position: absolute;
 	width: 1px;
@@ -498,7 +534,7 @@
 	line-height: 1.6;
 	font-variant-ligatures: none;
 }
-.vk-dock__body > p:first-child {
+.vk-dock__body[data-typed] > p:first-child {
 	animation: vk-type 380ms steps(22, end);
 }
 .vk-dock__prompt {
@@ -507,6 +543,8 @@
 .vk-dock__out {
 	color: var(--vk-term-mute);
 	white-space: pre-wrap;
+}
+.vk-dock__body[data-typed] .vk-dock__out {
 	animation: vk-line var(--motion-slow) var(--ease-out) both;
 }
 @keyframes vk-line {
@@ -651,20 +689,6 @@
 	color: var(--vk-mute);
 	max-width: 52ch;
 }
-.vk-decision .vk-decision__nodes {
-	font-family: var(--font-mono);
-	font-size: 0.8125rem;
-	color: var(--foreground);
-}
-.vk-decision__nodes::before {
-	content: "";
-	display: inline-block;
-	width: 9px;
-	height: 10px;
-	margin-right: 8px;
-	clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
-	background: var(--vk-accent);
-}
 .vk-decision a {
 	justify-self: start;
 	font-size: var(--vk-text-sm);
@@ -775,12 +799,15 @@
 	.vk-story {
 		grid-template-columns: minmax(0, 1fr);
 	}
+	.vk-story__flow {
+		padding-right: var(--vk-gutter);
+	}
 	.vk-story__stage {
 		grid-row: 1;
 		top: 61px;
 		z-index: 5;
-		height: 44svh;
-		margin-inline: calc(-1 * clamp(16px, 4vw, 32px));
+		height: 48svh;
+		margin-left: calc(-1 * var(--vk-gutter));
 		border-left: 0;
 		border-bottom: 1px solid var(--vk-line);
 	}
@@ -791,6 +818,13 @@
 	.vk-dock,
 	.vk-bar__key {
 		display: none;
+	}
+	/* The band is short: the graph takes whatever height the switch and bar leave. */
+	.vk-graph {
+		min-height: 0;
+	}
+	.vk-stage {
+		overflow: hidden;
 	}
 	.vk-steps > .vk-step,
 	.vk-steps > * > .vk-step {

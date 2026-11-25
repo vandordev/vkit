@@ -16,6 +16,7 @@ agreed scope; discuss anything outside the spec first.
   Tool configs may be `.mjs` only where the tool cannot load TypeScript.
 - Generated or added code must be exercised by CI, never only documented.
 - One implementation per capability.
+- UI: no eyebrow or kicker labels above headings; no copy that narrates the interface; no horizontal scroll at any width (check with real scrollbars, not Playwright's default hidden ones).
 
 ## Commands
 

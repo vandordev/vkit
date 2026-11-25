@@ -29,10 +29,19 @@ const cardFor = (kit: Kit, chapter: ChapterId): { command: string; output: strin
 export function Stage() {
 	const [chapter, setChapter] = useState<ChapterId>("hero");
 	const [kit, setKit] = useState<KitName>("zenith");
+	// The dock types only after the first change, so the first paint never shows a half-typed command.
+	const [typed, setTyped] = useState(false);
 
 	useEffect(() => {
-		const onStep = (e: Event) => setChapter((e as CustomEvent<StepDetail>).detail.chapter);
-		const onKit = () => setKit((document.querySelector<HTMLInputElement>('input[name="kit"]:checked')?.value as KitName | undefined) ?? "zenith");
+		const onStep = (e: Event) => {
+			const next = (e as CustomEvent<StepDetail>).detail.chapter;
+			setChapter(next);
+			if (next !== "hero") setTyped(true);
+		};
+		const onKit = () => {
+			setTyped(true);
+			setKit((document.querySelector<HTMLInputElement>('input[name="kit"]:checked')?.value as KitName | undefined) ?? "zenith");
+		};
 		window.addEventListener(STEP_EVENT, onStep);
 		document.addEventListener("change", onKit);
 		return () => {
@@ -47,9 +56,25 @@ export function Stage() {
 
 	return (
 		<div className="vk-stage" data-chapter={chapter}>
+			{/* The kit choice lives on the pinned stage so it stays reachable for the whole story. */}
+			<div className="vk-switch">
+				<fieldset className="vk-switch__kits" aria-label="Kit">
+					{kits.map((k, i) => (
+						<label key={k.name}>
+							<input type="radio" name="kit" value={k.name} defaultChecked={i === 0} />
+							<span>{k.name}</span>
+						</label>
+					))}
+				</fieldset>
+				{kits.map((k) => (
+					<p key={k.name} className="vk-switch__meta" data-kit={k.name}>
+						{k.backend} · {k.tagline}
+					</p>
+				))}
+			</div>
 			<ArchGraph />
 			<div className="vk-dock" aria-hidden="true">
-				<div className="vk-dock__body" key={`${kit}-${chapter}`}>
+				<div className="vk-dock__body" key={`${kit}-${chapter}`} data-typed={typed || undefined}>
 					<p>
 						<span className="vk-dock__prompt">$ </span>
 						{card.command}
