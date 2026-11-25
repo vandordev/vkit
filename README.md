@@ -16,9 +16,14 @@ Frontends are TypeScript only.
 
 ## Repository layout
 
-- `site/`: the static landing page (Next.js export, deployed on Vercel).
+Bun-workspaces monorepo, same shape as vkit-zenith:
+
+- `apps/site`: the landing page (TanStack Start, prerendered to static files).
+- `apps/storybook`: shared Storybook for every `*.stories.tsx` in the repository.
+- `packages/brand`, `packages/ui`: brand tokens and UI components copied from vkit-zenith.
+- `packages/typescript-config`: shared TypeScript options.
 - `docs/superpowers/`: specs and plans.
-- Generator folders arrive with v1.
+- `apps/cli` and template packages arrive with v1.
 
 ## License
 

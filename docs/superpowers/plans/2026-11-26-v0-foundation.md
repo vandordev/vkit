@@ -202,16 +202,18 @@ Gate: from the root, `bun install --frozen-lockfile`; in `apps/site`, check-type
 test, build pass and the build output contains a prerendered `index.html` with both
 start commands. Invalidates: Task 9 checks and Task 12's site gate (rerun in Batch 5).
 
-- [ ] Root `package.json` (workspaces `apps/*`, `packages/*`), move to `apps/site`,
+- [x] Root `package.json` (workspaces `apps/*`, `packages/*`), move to `apps/site`,
   `packages/brand` and `packages/ui` (button, loading-arc, display-heading, zenith-mark,
   styles) copied from zenith; delete `site/`. Commit `refactor: convert to bun workspaces monorepo`.
-- [ ] `apps/site` on TanStack Start + Vite + Tailwind v4, versions from zenith `apps/web`,
+- [x] `apps/site` on TanStack Start + Vite + Tailwind v4, versions from zenith `apps/web`,
   static prerender of `/`. Commit `feat(site): move to tanstack start`.
-- [ ] Copy zenith landing components and `landing.css`; nav, hero, kit bento (two kit
+- [x] Copy zenith landing components and `landing.css`; nav, hero, kit bento (two kit
   radio tiles + wide command tile with `CopyCommand`), closing CTA as "What's next",
   footer; content from `content.ts`. Commit `feat(site): adopt zenith landing design`.
-- [ ] Rerun Task 9 checks (light only) and the Playwright behavior script; update README,
+- [x] Rerun Task 9 checks (light only) and the Playwright behavior script; update README,
   AGENTS.md site commands and paths. Commit `docs: update paths for monorepo`.
+- [x] `apps/storybook` from zenith's pattern with stories for ui, brand and landing
+  components; `storybook build` passes. Commit `feat(storybook): add shared storybook`.
 
 ## Batch 5: Final integrated gate
 

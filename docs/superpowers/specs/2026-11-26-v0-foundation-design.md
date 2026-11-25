@@ -135,6 +135,8 @@ Vercel Hobby's non-commercial rule turns out to apply.
   zenith so landing components keep their `@repo/*` imports. This supersedes
   `site/`, the Next.js bullets in Design, and the dark-mode check (zenith's
   landing is light only).
+- `apps/storybook` (Storybook 10, zenith's discovery pattern) previews `packages/ui`,
+  `packages/brand` and the landing components; stories sit next to components.
 
 - Site and all repository text are English.
 - zenith and orbit are v0 entry points only; v1 is a generator composed from
