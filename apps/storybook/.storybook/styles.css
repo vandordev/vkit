@@ -1,0 +1,9 @@
+@import "../../site/src/styles.css";
+
+@source "../../site/src";
+@source "../../../packages";
+
+body {
+	background: var(--background);
+	color: var(--foreground);
+}
